@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import sys
+
+from libxmp.consts import XMP_NS_DC as NS_DC
+
+from utils import crs_tonecurve
+from utils import xmp_export_full
+
+DEFAULT_OUTPUT_FILENAME = 'DEFAULT_OUTPUT_FILENAME'
+
+def xmp_read(args):
+    output_file = None
+
+    if not args.filename.lower().endswith(('.jpg', '.jpeg')):
+        print('Input file must be a jpeg image.')
+        return -1
+
+    if args.output:
+        if args.output == DEFAULT_OUTPUT_FILENAME:
+            output_file = os.path.splitext(args.filename)[0] + '.xmp'
+        else:
+            output_file = args.output
+
+    xmp = xmp_export_full(args.filename)
+
+    if not xmp:
+        print('There was an error in loading the file.')
+        return -1
+    if xmp.get_property(NS_DC, 'format') != 'image/jpeg':
+        print('Input file must be a jpeg image.')
+        return -1
+
+    output = xmp
+    if args.curve:
+        tone_curve = crs_tonecurve(xmp)
+        output = tone_curve
+
+    if output_file:
+        f = open(output_file, 'w+')
+        f.write(str(output))
+    else:
+        print(str(output))
+    return 0
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description='Extracts XMP metadata stored in JPEG photos.')
+
+    parser.add_argument('filename', type=str, help='filename of the jpeg')
+    parser.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
+    parser.add_argument('--curve', '-c', action='store_true', help='only view tone curve')
+
+    args = parser.parse_args(argv)
+    return xmp_read(args)
+
+if __name__ == '__main__':
+    main()
