@@ -8,6 +8,7 @@ from libxmp.consts import XMP_NS_DC as NS_DC
 
 from portra.utils import crs_tonecurve
 from portra.utils import xmp_export_full
+from portra.utils import xmp_export_tonecurve
 
 DEFAULT_OUTPUT_FILENAME = 'DEFAULT_OUTPUT_FILENAME'
 
@@ -35,7 +36,7 @@ def xmp_read(args):
 
     output = xmp
     if args.curve:
-        tone_curve = crs_tonecurve(xmp)
+        tone_curve = xmp_export_tonecurve(xmp)
         output = tone_curve
 
     if output_file:
