@@ -6,30 +6,39 @@ import sys
 
 from libxmp.consts import XMP_NS_DC as NS_DC
 
-from portra.utils import crs_tonecurve
-from portra.utils import xmp_export_full
-from portra.utils import xmp_export_tonecurve
+from portra.component.xmp import crs_tonecurve
+from portra.component.xmp import xmp_export_full
+from portra.component.xmp import xmp_export_tonecurve
 
 DEFAULT_OUTPUT_FILENAME = 'DEFAULT_OUTPUT_FILENAME'
 
 def xmp_read(args):
+    extension = '.lrtemplate' if args.template else '.xmp'    
     output_file = None
 
     if not args.filename.lower().endswith(('.jpg', '.jpeg')):
         print('Input file must be a jpeg image.')
         return -1
 
+    if args.curve and args.template:
+        print('You may pick only one type of output.')
+        return -1
+
     if args.output:
         if args.output == DEFAULT_OUTPUT_FILENAME:
-            output_file = os.path.splitext(args.filename)[0] + '.xmp'
+            output_file = os.path.splitext(args.filename)[0] + extension
         else:
             output_file = args.output
 
     xmp = xmp_export_full(args.filename)
 
     if not xmp:
-        print('There was an error in loading the file.')
+        print('XMP information could not be loaded from the file.')
         return -1
+    elif xmp == -1:
+        print('There was an error in loading the file. Check to make sure the filename is correct.')
+        return -1
+
     if xmp.get_property(NS_DC, 'format') != 'image/jpeg':
         print('Input file must be a jpeg image.')
         return -1
@@ -51,7 +60,8 @@ def main(argv=None):
 
     parser.add_argument('filename', type=str, help='filename of the jpeg')
     parser.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
-    parser.add_argument('--curve', '-c', action='store_true', help='only view tone curve')
+    parser.add_argument('--curve', '-c', action='store_true', help='only export the tone curve')
+    parser.add_argument('--template', '-t', action='store_true', help='exports a .lrtemplate file')
 
     args = parser.parse_args(argv)
     return xmp_read(args)
