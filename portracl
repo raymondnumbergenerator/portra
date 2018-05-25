@@ -6,8 +6,8 @@ import sys
 
 from libxmp.consts import XMP_NS_DC as NS_DC
 
-from utils import crs_tonecurve
-from utils import xmp_export_full
+from portra.utils import crs_tonecurve
+from portra.utils import xmp_export_full
 
 DEFAULT_OUTPUT_FILENAME = 'DEFAULT_OUTPUT_FILENAME'
 
