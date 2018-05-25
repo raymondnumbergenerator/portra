@@ -6,47 +6,41 @@ import sys
 
 from libxmp.consts import XMP_NS_DC as NS_DC
 
+from portra.component.xmp import crs_full
 from portra.component.xmp import crs_tonecurve
 from portra.component.xmp import xmp_export_full
 from portra.component.xmp import xmp_export_tonecurve
 
 DEFAULT_OUTPUT_FILENAME = 'DEFAULT_OUTPUT_FILENAME'
 
-def xmp_read(args):
-    extension = '.lrtemplate' if args.template else '.xmp'    
+def dispatch(args):
+    extension = '.lrtemplate' if (args.command == 'lrt') else '.xmp'
     output_file = None
 
     if not args.filename.lower().endswith(('.jpg', '.jpeg')):
-        print('Input file must be a jpeg image.')
-        return -1
-
-    if args.curve and args.template:
-        print('You may pick only one type of output.')
+        print('Input file must be a JPEG.')
         return -1
 
     if args.output:
-        if args.output == DEFAULT_OUTPUT_FILENAME:
-            output_file = os.path.splitext(args.filename)[0] + extension
+        if args.output == DEFUALT_OUTPUT_FILENAME:
+            output_file = os.path.splittext(args.filename)[0] + extension
         else:
             output_file = args.output
 
     xmp = xmp_export_full(args.filename)
-
     if not xmp:
-        print('XMP information could not be loaded from the file.')
-        return -1
-    elif xmp == -1:
-        print('There was an error in loading the file. Check to make sure the filename is correct.')
+        print('XMP information could not be loaded from the file. Check to make sure you entered the correct filename.')
         return -1
 
     if xmp.get_property(NS_DC, 'format') != 'image/jpeg':
-        print('Input file must be a jpeg image.')
+        print('Input file must be a JPEG.')
         return -1
 
     output = xmp
-    if args.curve:
-        tone_curve = xmp_export_tonecurve(xmp)
-        output = tone_curve
+    if args.command == 'tc':
+        output = xmp_export_tonecurve(xmp)
+    if args.command == 'lrt':
+        output = crs_full(xmp)
 
     if output_file:
         f = open(output_file, 'w+')
@@ -57,14 +51,23 @@ def xmp_read(args):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Extracts XMP metadata stored in JPEG photos.')
+    subparsers = parser.add_subparsers(dest='command')
+    subparsers.required = True
 
-    parser.add_argument('filename', type=str, help='filename of the jpeg')
-    parser.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
-    parser.add_argument('--curve', '-c', action='store_true', help='only export the tone curve')
-    parser.add_argument('--template', '-t', action='store_true', help='exports a .lrtemplate file')
+    parser_xmp = subparsers.add_parser('xmp', help='Exports an XMP sidecar file.')
+    parser_xmp.add_argument('filename', type=str, required=True, help='filename of the jpeg image')
+    parser_xmp.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
+
+    parser_tc = subparsers.add_parser('tc', help='Exports the tone curve as an .xmp file.')
+    parser_tc.add_argument('filename', type=str, required=True, help='filename of the jpeg image')
+    parser_tc.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
+
+    parser_lrt = subparsers.add_parser('lrt', help='Exports a .lrtemplate file from the image.')
+    parser_lrt.add_argument('filename', type=str, required=True, help='filename of the jpeg image')
+    parser_lrt.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
 
     args = parser.parse_args(argv)
-    return xmp_read(args)
+    return dispatch(args)
 
 if __name__ == '__main__':
     main()

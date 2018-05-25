@@ -1,0 +1,85 @@
+LR_WHITE_BALANCE = {
+	'Temperature': 6200,
+	'Tint': 2,
+	'WhiteBalance': '\"As Shot\"'}
+LR_TONE = {
+        'Black2012': 0, 
+        'Contrast2012': 0,
+        'Exposure2012': 0,
+        'Highlights2012': 0,
+        'Shadows2012': 0,
+        'Whites2012': 0,
+        'Clarity2012': 0}
+LR_COLOR = {
+        'ConvertToGrayscale': 'false',
+        'EnableColorAdjustments': 'true',
+        'Saturation': 0,
+        'Vibrance': 0}
+LR_COLOR_ADJUSTMENTS = {
+	'HueAdjustmentAqua': 0,
+	'HueAdjustmentBlue': 0,
+	'HueAdjustmentGreen': 0,
+	'HueAdjustmentMagenta': 0,
+	'HueAdjustmentOrange': 0,
+	'HueAdjustmentPurple': 0,
+	'HueAdjustmentRed': 0,
+	'HueAdjustmentYellow': 0,
+	'LuminanceAdjustmentAqua': 0,
+	'LuminanceAdjustmentBlue': 0,
+	'LuminanceAdjustmentGreen': 0,
+	'LuminanceAdjustmentMagenta': 0,
+	'LuminanceAdjustmentOrange': 0,
+	'LuminanceAdjustmentPurple': 0,
+	'LuminanceAdjustmentRed': 0,
+	'LuminanceAdjustmentYellow': 0,
+	'SaturationAdjustmentAqua': 0,
+	'SaturationAdjustmentBlue': 0,
+	'SaturationAdjustmentGreen': 0,
+	'SaturationAdjustmentMagenta': 0,
+	'SaturationAdjustmentOrange': 0,
+	'SaturationAdjustmentPurple': 0,
+	'SaturationAdjustmentRed': 0,
+	'SaturationAdjustmentYellow': 0}
+LR_SHARPENING = {
+	'EnableDetail': 'true',
+	'SharpenDetail': 25,
+	'SharpenEdgeMasking': 0,
+	'SharpenRadius': 1,
+	'Sharpness': 25}
+LR_EFFECTS = {
+	'Dehaze': 0,
+	'EnableEffects': 'true'}
+LR_EFFECTS_GRAIN = {
+	'GrainAmount': 0,
+	'GrainFrequency': 50,
+	'GrainSize': 25}
+LR_EFFECTS_VIGNETTE = {
+	'PostCropVignetteAmount': 0,
+	'PostCropVignetteFeather': 50,
+	'PostCropVignetteHighlightContrast': 0,
+	'PostCropVignetteMidpoint': 50,
+	'PostCropVignetteRoundness': 0,
+	'PostCropVignetteStyle': 1}
+LR_SPLIT_TONING = {
+	'EnableSplitToning': 'true', 'SplitToningBalance': 0,
+	'SplitToningHighlightHue': 0, 'SplitToningHighlightSaturation': 0,
+	'SplitToningShadowHue': 0, 'SplitToningShadowSaturation': 0}
+LR_PROCESS_VERSION = {'ProcessVersion': '\"6.7\"'}
+LR_CAMERA_CALIBRATION = {
+	'CameraProfile': '\"Adobe Standard\"',
+	'EnableCalibration': 'true',
+	'ShadowTint': 0,
+	'RedHue': 0, 'RedSaturation': 0,
+        'GreenHue': 0, 'GreenSaturation': 0,
+	'BlueHue': 0, 'BlueSaturation': 0}
+
+TC_TAGS_STRING = ['Version', 'ToneCurveName', 'ToneCurveName2012', 'HasSettings'] 
+TC_TAGS_ARRAY = ['ToneCurve', 'ToneCurveRed', 'ToneCurveGreen', 'ToneCurveBlue',
+        'ToneCurvePV2012', 'ToneCurvePV2012Red', 'ToneCurvePV2012Green', 'ToneCurvePV2012Blue']
+
+XMP_TC_TAGS = [['x:xmpmeta', 'xmlns:x', 'x:xmptk'],
+        ['rdf:RDF', 'xmlns:rdf'],
+        ['rdf:Description', 'rdf:about', 'xmlns:crs', 'crs:Version', 'crs:ToneCurveName', 'crs:ToneCurveName2012', 'crs:HasSettings']]
+XMP_TC_TEXT = [["", "adobe:ns:meta/", "Exempi + XMP Core 5.5.0"],
+        ["", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"],
+        ["", "", "http://ns.adobe.com/camera-raw-settings/1.0/"]]
