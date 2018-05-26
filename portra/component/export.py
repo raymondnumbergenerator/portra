@@ -10,6 +10,7 @@ from portra.component.tags import XMP_TC_TAGS
 from portra.component.tags import XMP_TC_TEXT
 
 def xmp_export_full(filename):
+    """Exports an .xmp sidecar file from the image."""
     try:
         xmpfile = XMPFiles(file_path=filename)
     except:
@@ -17,6 +18,7 @@ def xmp_export_full(filename):
     return xmpfile.get_xmp()
 
 def xmp_export_tonecurve(xmp):
+    """Exports an .xmp file of the tone curve from the image."""
     tc = crs_tonecurve(xmp)
 
     x_xmpmeta = et.Element(XMP_TC_TAGS[0][0])
@@ -51,6 +53,46 @@ def lr_export_lrtemplate(xmp, name,
                 treatment=True, adjustments=True, saturation=True, vibrance=True,
                 sharpening=False, grain=True, vignette=False, dehaze=True, st=True,
                 d_luminance=False, d_color=False, pv=True, cc=True):
+    """
+    Exports the Adobe Camera Raw parameters in the image as a .lrtemplate file.
+    Optional arguments can be provided to choose to include of exclude certain
+    parameters in the .lrtemplate file.
+
+    wb -- White Balance (default: True)
+
+    Basic Tone
+        exposure -- Exposure (default: False)
+        contrast -- Contrast (default: True)
+        highlights -- Highlights (default: True)
+        shadows -- Shadows (default: True)
+        white -- White Clipping (default: True)
+        black -- Black Clipping (default: True)
+
+    clarity -- Clarity (default: True)
+    tc -- Tone Curve (default: True)
+    treatment -- Color Treatment (default: True)
+
+    Color
+        adjustments -- Color Adjustments (default: True)
+        saturation -- Saturation (default: True)
+        vibrance -- Vibrance (default: True)
+
+    sharpening -- Sharpening (default: True)
+
+    Effects
+        grain - Grain (default: True)
+        vignette - Post-Crop Vignetting (default: False)
+        dehaze - Dehaze (default: True)
+
+    st -- Split Toning (default: True)
+
+    Noise Reduction
+        d_luminance -- Luminance (default: True)
+        d_color -- Color (default: True)
+
+    pv -- Process Version (default: True)
+    cc -- Camera Calibration (default: True)
+    """
     return crs_full(xmp, wb, exposure, contrast, highlights,
                 shadows, white, black, clarity, tc,
                 treatment, adjustments, saturation, vibrance,

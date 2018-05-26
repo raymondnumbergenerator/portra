@@ -7,6 +7,10 @@ def crs_full(xmp, wb, exposure, contrast, highlights,
                 treatment, adjustments, saturation, vibrance,
                 sharpening, grain, vignette, dehaze, st,
                 d_luminance, d_color, pv, cc):
+    """
+    Returns a dictionary of Adobe Camera Raw parameters from the .xmp file.
+    The remaining arguments are booleans which determine the parameters included.
+    """
     crs = {}
     wb and crs.update(lr_white_balance(xmp))
     crs.update(lr_tone(xmp, exposure, contrast, highlights, shadows, white, black, clarity))
@@ -103,4 +107,5 @@ def lr_camera_calibration(xmp):
     return lr_get_settings(xmp, LR_CAMERA_CALIBRATION)
 
 def tc_format(arr):
+    """Formats an array into the style used in .lrtemplate files."""
     return '{' + ', '.join(arr) + ',}'
