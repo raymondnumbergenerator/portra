@@ -21,10 +21,10 @@ def dispatch(args):
         return -1
 
     if args.output:
-        if args.output == DEFUALT_OUTPUT_FILENAME:
-            output_file = os.path.splittext(args.filename)[0] + extension
+        if args.output == DEFAULT_OUTPUT_FILENAME:
+            output_file = os.path.splitext(args.filename)[0] + extension
         else:
-            output_file = args.output
+            output_file = clean_filename(args.output)
 
     xmp = xmp_export_full(args.filename)
     if not xmp:
@@ -47,6 +47,23 @@ def dispatch(args):
     else:
         print(str(output))
     return 0
+
+def clean_filename(filename, replace=' '):
+    """
+    https://gist.github.com/wassname/1393c4a57cfcbf03641dbc31886123b8#file-to_filename-py
+
+    python convert string to safe filename
+    """
+    whitelist = "-_.() %s%s" % (string.ascii_letters, string.digits)
+    # replace spaces
+    for r in replace:
+        filename = filename.replace(r,'_')
+
+    # keep only valid ascii chars
+    cleaned_filename = unicodedata.normalize('NFKD', filename).encode('ASCII', 'ignore').decode()
+
+    # keep only whitelisted chars
+    return ''.join(c for c in cleaned_filename if c in whitelist)
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Extracts XMP metadata stored in JPEG photos.')
