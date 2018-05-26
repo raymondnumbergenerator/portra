@@ -6,9 +6,9 @@ import sys
 
 from libxmp.consts import XMP_NS_DC as NS_DC
 
-from portra.component.xmp import lr_export_lrtemplate
-from portra.component.xmp import xmp_export_full
-from portra.component.xmp import xmp_export_tonecurve
+from portra.component.export import lr_export_lrtemplate
+from portra.component.export import xmp_export_full
+from portra.component.export import xmp_export_tonecurve
 
 DEFAULT_OUTPUT_FILENAME = 'DEFAULT_OUTPUT_FILENAME'
 
