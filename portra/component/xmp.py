@@ -7,6 +7,7 @@ from libxmp.utils import file_to_dict, XMPFiles
 
 from portra.component.tags import LR_WHITE_BALANCE
 from portra.component.tags import LR_TONE
+from portra.component.tags import LR_TONE_CURVE
 from portra.component.tags import LR_COLOR
 from portra.component.tags import LR_COLOR_ADJUSTMENTS
 from portra.component.tags import LR_SHARPENING
@@ -14,8 +15,13 @@ from portra.component.tags import LR_EFFECTS
 from portra.component.tags import LR_EFFECTS_GRAIN
 from portra.component.tags import LR_EFFECTS_VIGNETTE
 from portra.component.tags import LR_SPLIT_TONING
+from portra.component.tags import LR_DETAIL
+from portra.component.tags import LR_DETAIL_LUMINANCE
+from portra.component.tags import LR_DETAIL_COLOR
 from portra.component.tags import LR_PROCESS_VERSION
 from portra.component.tags import LR_CAMERA_CALIBRATION
+from portra.component.tags import LR_STRING_TAGS
+from portra.component.tags import LR_ARRAY_TAGS
 
 from portra.component.tags import TC_TAGS_STRING
 from portra.component.tags import TC_TAGS_ARRAY
@@ -52,7 +58,7 @@ def xmp_export_tonecurve(xmp):
         seq = et.SubElement(node, 'rdf:Seq')
         for p in tc[t]:
             li = et.SubElement(seq, 'rdf:li')
-            li.text = p 
+            li.text = p
 
     rough_xmp_output = et.tostring(x_xmpmeta, 'UTF-8')
     xmp_output = minidom.parseString(rough_xmp_output).toprettyxml(indent=' ')
@@ -60,19 +66,6 @@ def xmp_export_tonecurve(xmp):
 
 def lr_export_lrtemplate(xmp, name):
     return crs_full(xmp)
-
-def xmp_get_array(xmp, schema_ns, array_name):
-    ret = []
-    i = 1
-
-    try: 
-        while True:
-            ret.append(xmp.get_array_item(schema_ns, array_name, i))
-            i = i + 1
-    except XMPError:
-        return ret
-
-    return ret
 
 def crs_tonecurve(xmp):
     tc = {}
@@ -84,12 +77,131 @@ def crs_tonecurve(xmp):
 
     return tc
 
-def crs_full(xmp):
-    cr = {}
+def lr_white_balance(xmp):
+    return lr_get_settings(xmp, LR_WHITE_BALANCE)
 
-    for t in LR_TAGS:
-        print(t)
-        cr[t] = xmp.get_property(NS_CRS, t)
-    cr.update(crs_tonecurve(xmp))
+def lr_tone(xmp, exposure, contrast, highlights, shadows, white, black, clarity):
+    tone = lr_get_settings(xmp, LR_TONE)
+    if not exposure:
+        tone.pop("Exposure2012")
+    if not contrast:
+        tone.pop("Contrast2012")
+    if not highlights:
+        tone.pop("Highlights2012")
+    if not shadows:
+        tone.pop("Shadows2012")
+    if not white:
+        tone.pop("Whites2012")
+    if not black:
+        tone.pop("Blacks2012")
+    if not clarity:
+        tone.pop("Clarity2012")
+    return tone
 
-    return cr
+def lr_tone_curve(xmp):
+    tc = crs_tonecurve(xmp)
+    lrt = lr_get_settings(xmp, LR_TONE_CURVE)
+    for t in LR_ARRAY_TAGS:
+        lrt[t] = tc_format(tc[t])
+    return lrt
+
+def lr_color(xmp, treatment, adjustments, saturation, vibrance):
+    color = lr_get_settings(xmp, LR_COLOR)
+    if not treatment:
+        color.pop("ConvertToGrayscale")
+    if not saturation:
+        color.pop("Saturation")
+    if not vibrance:
+        color.pop("Vibrance")
+
+    if adjustments:
+        color.update(lr_color_adjustments(xmp))
+    else:
+        color.pop("EnableColorAdjustments")
+    return color
+
+def lr_color_adjustments(xmp):
+    return lr_get_settings(xmp, LR_COLOR_ADJUSTMENTS)
+
+def lr_sharpening(xmp):
+    return lr_get_settings(xmp, LR_SHARPENING)
+
+def lr_effects(xmp, grain, vignette, dehaze):
+    effects = lr_get_settings(xmp, LR_EFFECTS)
+    if not dehaze:
+        effects.pop("Dehaze")
+
+    if grain:
+        effects.update(lr_get_settings(xmp, LR_EFFECTS_GRAIN))
+    if vignette:
+        effects.update(lr_get_settings(xmp, LR_EFFECTS_VIGNETTE))
+
+    if not grain and not vignette:
+        effects.pop("EnableEffects")
+    return effects
+
+def lr_split_toning(xmp):
+    return lr_get_settings(xmp, LR_SPLIT_TONING)
+
+def lr_detail(xmp, luminance, color):
+    detail = {}
+    if luminance or color:
+        detail = lr_get_settings(xmp, LR_DETAIL)
+        if luminance:
+            detail.update(lr_get_settings(xmp, LR_DETAIL_LUMINANCE))
+        if color:
+            detail.update(lr_get_settings(xmp, LR_DETAIL_COLOR))
+    return detail
+
+def lr_process_version(xmp):
+    return lr_get_settings(xmp, LR_PROCESS_VERSION)
+
+def lr_camera_calibration(xmp):
+    return lr_get_settings(xmp, LR_CAMERA_CALIBRATION)
+
+def crs_full(xmp, wb=False, exposure=True, contrast=True, highlights=True,
+                shadows=True, white=True, black=True, clarity=True, tc=True,
+                treatment=True, adjustments=True, saturation=True, vibrance=True,
+                sharpening=False, grain=True, vignette=False, dehaze=True, st=True,
+                d_luminance=False, d_color=False, pv=True, cc=True):
+    crs = {}
+    wb and crs.update(lr_white_balance(xmp))
+    crs.update(lr_tone(xmp, exposure, contrast, highlights, shadows, white, black, clarity))
+    tc and crs.update(lr_tone_curve(xmp))
+    crs.update(lr_color(xmp, treatment, adjustments, saturation, vibrance))
+    sharpening and crs.update(lr_sharpening(xmp))
+    crs.update(lr_effects(xmp, grain, vignette, dehaze))
+    st and crs.update(lr_split_toning(xmp))
+    crs.update(lr_detail(xmp, d_luminance, d_color))
+    pv and crs.update(lr_process_version(xmp))
+    cc and crs.update(lr_camera_calibration(xmp))
+    return crs
+
+def xmp_get_array(xmp, schema_ns, array_name):
+    ret = []
+    i = 1
+
+    try:
+        while True:
+            ret.append(xmp.get_array_item(schema_ns, array_name, i))
+            i = i + 1
+    except XMPError:
+        pass
+    return ret
+
+def lr_get_settings(xmp, settings):
+    s = {}
+    for option, val in settings.items():
+        try:
+            v = xmp.get_property(NS_CRS, option)
+            if v:
+                val = v
+        except XMPError:
+            print('Missing tag ' + option + ': using default value of ' + str(val)) # for debugging purposes
+        if option in LR_STRING_TAGS:
+            val = '\"' + val + '\"'
+        s[option] = val
+    return s
+
+def tc_format(arr):
+    return '{' + ', '.join(arr) + ',}'

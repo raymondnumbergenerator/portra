@@ -6,8 +6,7 @@ import sys
 
 from libxmp.consts import XMP_NS_DC as NS_DC
 
-from portra.component.xmp import crs_full
-from portra.component.xmp import crs_tonecurve
+from portra.component.xmp import lr_export_lrtemplate
 from portra.component.xmp import xmp_export_full
 from portra.component.xmp import xmp_export_tonecurve
 
@@ -40,7 +39,7 @@ def dispatch(args):
     if args.command == 'tc':
         output = xmp_export_tonecurve(xmp)
     if args.command == 'lrt':
-        output = crs_full(xmp)
+        output = lr_export_lrtemplate(xmp, 'placeholder')
 
     if output_file:
         f = open(output_file, 'w+')
@@ -55,15 +54,15 @@ def main(argv=None):
     subparsers.required = True
 
     parser_xmp = subparsers.add_parser('xmp', help='Exports an XMP sidecar file.')
-    parser_xmp.add_argument('filename', type=str, required=True, help='filename of the jpeg image')
+    parser_xmp.add_argument('filename', type=str, help='filename of the jpeg image')
     parser_xmp.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
 
     parser_tc = subparsers.add_parser('tc', help='Exports the tone curve as an .xmp file.')
-    parser_tc.add_argument('filename', type=str, required=True, help='filename of the jpeg image')
+    parser_tc.add_argument('filename', type=str, help='filename of the jpeg image')
     parser_tc.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
 
     parser_lrt = subparsers.add_parser('lrt', help='Exports a .lrtemplate file from the image.')
-    parser_lrt.add_argument('filename', type=str, required=True, help='filename of the jpeg image')
+    parser_lrt.add_argument('filename', type=str, help='filename of the jpeg image')
     parser_lrt.add_argument('--output', '-o', type=str, nargs='?', default=None, const=DEFAULT_OUTPUT_FILENAME, help='outputs to a file if this flag is enabled, optionally, provide a filename to output to (default: filename)')
 
     args = parser.parse_args(argv)
