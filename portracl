@@ -14,7 +14,7 @@ DEFAULT_OUTPUT_FILENAME = 'DEFAULT_OUTPUT_FILENAME'
 
 def dispatch(args):
     extension = '.lrtemplate' if (args.command == 'lrt') else '.xmp'
-    output_file = None
+    output_filename = None
 
     if not args.filename.lower().endswith(('.jpg', '.jpeg')):
         print('Input file must be a JPEG.')
@@ -22,9 +22,9 @@ def dispatch(args):
 
     if args.output:
         if args.output == DEFAULT_OUTPUT_FILENAME:
-            output_file = os.path.splitext(args.filename)[0] + extension
+            output_filename = os.path.splitext(args.filename)[0] + extension
         else:
-            output_file = clean_filename(args.output)
+            output_filename = clean_filename(args.output)
 
     xmp = xmp_export_full(args.filename)
     if not xmp:
@@ -39,10 +39,10 @@ def dispatch(args):
     if args.command == 'tc':
         output = xmp_export_tonecurve(xmp)
     if args.command == 'lrt':
-        output = lr_export_lrtemplate(xmp, 'placeholder')
+        output = lr_export_lrtemplate(xmp, os.path.splitext(args.filename)[0])
 
-    if output_file:
-        f = open(output_file, 'w+')
+    if output_filename:
+        f = open(output_filename, 'w+')
         f.write(str(output))
     else:
         print(str(output))
