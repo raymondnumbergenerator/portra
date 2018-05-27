@@ -1,13 +1,17 @@
+import json
+import uuid
 import xml.dom.minidom as minidom
 import xml.etree.ElementTree as et
 
 from libxmp.utils import file_to_dict, XMPFiles
 
 from portra.component.lr import crs_full
+from portra.component.lrtemplate import LRTemplate
 from portra.component.tags import TC_TAGS_ARRAY
 from portra.component.tags import TC_TAGS_STRING
 from portra.component.tags import XMP_TC_TAGS
 from portra.component.tags import XMP_TC_TEXT
+from portra.component.xmp import crs_tonecurve
 
 def xmp_export_full(filename):
     """Exports an .xmp sidecar file from the image."""
@@ -93,8 +97,10 @@ def lr_export_lrtemplate(xmp, name,
     pv -- Process Version (default: True)
     cc -- Camera Calibration (default: True)
     """
-    return crs_full(xmp, wb, exposure, contrast, highlights,
+    settings = crs_full(xmp, wb, exposure, contrast, highlights,
                 shadows, white, black, clarity, tc,
                 treatment, adjustments, saturation, vibrance,
                 sharpening, grain, vignette, dehaze, st,
                 d_luminance, d_color, pv, cc)
+    lrt = LRTemplate(name, settings)
+    return lrt.dump()
