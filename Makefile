@@ -2,7 +2,7 @@ VENV := venv
 BIN := $(VENV)/bin
 
 $(VENV): setup.py requirements.txt
-		python ./vendor/venv-update venv= venv -p python3 install= -r requirements.txt
+	python ./vendor/venv-update venv= venv -p python3 install= -r requirements.txt
 
 .PHONY: clean
 clean:
@@ -10,12 +10,12 @@ clean:
 
 .PHONY: dev
 dev:
-	$(BIN)/python -m portra.run
+	$(BIN)/python run.py
 
 .PHONY: update-requirements
-update-requiremetns:
+update-requirements:
 	$(eval TMP := $(shell mktemp -d))
 	python ./vendor/venv-update venv= $(TMP) -p python3 install= .
-	. $(TMP)/bin/activae && \
-		pip freeze | sort > requirements.txt
+	. $(TMP)/bin/activate && \
+		pip freeze | sort | grep -vE '^(portra|venv-update)==' > requirements.txt
 	rm -rf $(TMP)
