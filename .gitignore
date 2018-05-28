@@ -1,7 +1,11 @@
-*.pyc
 *.DS_Store
+*.egg
+*.egg-info
 *.jpg
+*.pyc
 *.xmp
-venv/
-exempi/
+/build
+/dist
+/exempi
+/venv
 runapp

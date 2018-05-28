@@ -30,5 +30,5 @@ class LRTemplate:
                 output.append(s)
         return '\n'.join(output)
 
-def escape(self, string):
+def escape(string):
     return '\"' + string + '\"'
