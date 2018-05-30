@@ -2,6 +2,13 @@ from portra.component.tags import *
 from portra.component.xmp import crs_tonecurve
 from portra.component.xmp import lr_get_settings
 
+### Adobe Lightroom values that are stored as arrays.
+LR_ARRAY_TAGS = {
+    'ToneCurvePV2012',
+    'ToneCurvePV2012Blue',
+    'ToneCurvePV2012Green',
+    'ToneCurvePV2012Red'}
+
 def crs_full(xmp, wb, exposure, contrast, highlights,
                 shadows, white, black, clarity, tc,
                 treatment, adjustments, saturation, vibrance,

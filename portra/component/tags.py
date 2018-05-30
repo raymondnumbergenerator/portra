@@ -99,30 +99,8 @@ LR_CAMERA_CALIBRATION = {
     'GreenHue': 0, 'GreenSaturation': 0,
     'BlueHue': 0, 'BlueSaturation': 0}
 
-### Adobe Lightroom values that are stored as strings.
-LR_STRING_TAGS = {
-    'CameraProfile',
-    'ProcessVersion',
-    'WhiteBalance',
-    'ToneCurveName2012'}
-### Adobe Lightroom values that are stored as arrays.
-LR_ARRAY_TAGS = {
-    'ToneCurvePV2012',
-    'ToneCurvePV2012Blue',
-    'ToneCurvePV2012Green',
-    'ToneCurvePV2012Red'}
-
 ### Adobe Camera Raw Tone Curve settings that are stored as strings.
 TC_TAGS_STRING = ['Version', 'ToneCurveName', 'ToneCurveName2012', 'HasSettings']
 ### Adobe Camera Raw Tone Curve settings that are stored as arrays.
 TC_TAGS_ARRAY = ['ToneCurve', 'ToneCurveRed', 'ToneCurveGreen', 'ToneCurveBlue',
     'ToneCurvePV2012', 'ToneCurvePV2012Red', 'ToneCurvePV2012Green', 'ToneCurvePV2012Blue']
-
-### Tags used in tone curve .xmp files.
-XMP_TC_TAGS = [['x:xmpmeta', 'xmlns:x', 'x:xmptk'],
-    ['rdf:RDF', 'xmlns:rdf'],
-    ['rdf:Description', 'rdf:about', 'xmlns:crs', 'crs:Version', 'crs:ToneCurveName', 'crs:ToneCurveName2012', 'crs:HasSettings']]
-### Default values for tone curve .xmp files corresponding to the above tags.
-XMP_TC_TEXT = [["", "adobe:ns:meta/", "Exempi + XMP Core 5.5.0"],
-    ["", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"],
-    ["", "", "http://ns.adobe.com/camera-raw-settings/1.0/"]]

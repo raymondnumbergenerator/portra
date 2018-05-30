@@ -9,9 +9,17 @@ from portra.component.lr import crs_full
 from portra.component.lrtemplate import LRTemplate
 from portra.component.tags import TC_TAGS_ARRAY
 from portra.component.tags import TC_TAGS_STRING
-from portra.component.tags import XMP_TC_TAGS
-from portra.component.tags import XMP_TC_TEXT
 from portra.component.xmp import crs_tonecurve
+
+### Tags used in tone curve .xmp files.
+XMP_TC_TAGS = [['x:xmpmeta', 'xmlns:x', 'x:xmptk'],
+    ['rdf:RDF', 'xmlns:rdf'],
+    ['rdf:Description', 'rdf:about', 'xmlns:crs', 'crs:Version', 'crs:ToneCurveName', 'crs:ToneCurveName2012', 'crs:HasSettings']]
+
+### Default values for tone curve .xmp files corresponding to the above tags.
+XMP_TC_TEXT = [["", "adobe:ns:meta/", "Exempi + XMP Core 5.5.0"],
+    ["", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"],
+    ["", "", "http://ns.adobe.com/camera-raw-settings/1.0/"]]
 
 def xmp_export_full(filename):
     """Exports an .xmp sidecar file from the image."""

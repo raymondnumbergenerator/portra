@@ -3,9 +3,15 @@ import re
 from libxmp import XMPError
 from libxmp.consts import XMP_NS_CameraRaw as NS_CRS
 
-from portra.component.tags import LR_STRING_TAGS
 from portra.component.tags import TC_TAGS_ARRAY
 from portra.component.tags import TC_TAGS_STRING
+
+### Adobe Lightroom values that are stored as strings.
+LR_STRING_TAGS = {
+    'CameraProfile',
+    'ProcessVersion',
+    'WhiteBalance',
+    'ToneCurveName2012'}
 
 def crs_tonecurve(xmp):
     """Returns a dictionary of all Adobe Camera Raw parameters from the provided .xmp file."""
