@@ -1,5 +1,6 @@
 from libxmp import XMPError
 from libxmp.consts import XMP_NS_CameraRaw as NS_CRS
+from libxmp.consts import XMP_NS_DC as NS_DC
 
 from portra.component.tags import TC_TAGS_ARRAY
 from portra.component.tags import TC_TAGS_STRING
@@ -10,6 +11,9 @@ LR_STRING_TAGS = {
     'ProcessVersion',
     'WhiteBalance',
     'ToneCurveName2012'}
+
+def has_metadata(xmp):
+    return xmp.does_property_exist(NS_DC, 'format')
 
 def crs_tonecurve(xmp):
     """Returns a dictionary of all Adobe Camera Raw parameters from the provided .xmp file."""

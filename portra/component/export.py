@@ -10,6 +10,7 @@ from portra.component.lrtemplate import LRTemplate
 from portra.component.tags import TC_TAGS_ARRAY
 from portra.component.tags import TC_TAGS_STRING
 from portra.component.xmp import crs_tonecurve
+from portra.component.xmp import has_metadata
 
 ### Tags used in tone curve .xmp files.
 XMP_TC_TAGS = [['x:xmpmeta', 'xmlns:x', 'x:xmptk'],
@@ -31,6 +32,9 @@ def xmp_export_full(filename):
 
 def xmp_export_tonecurve(xmp):
     """Exports an .xmp file of the tone curve from the image."""
+    if not has_metadata(xmp):
+        return "Metadata not found."
+
     tc = crs_tonecurve(xmp)
 
     x_xmpmeta = et.Element(XMP_TC_TAGS[0][0])
@@ -105,6 +109,9 @@ def lr_export_lrtemplate(xmp, name,
     pv -- Process Version (default: True)
     cc -- Camera Calibration (default: True)
     """
+    if not has_metadata(xmp):
+        return "Metadata not found."
+
     settings = crs_full(xmp, wb, exposure, contrast, highlights,
                 shadows, white, black, clarity, tc,
                 treatment, adjustments, saturation, vibrance,

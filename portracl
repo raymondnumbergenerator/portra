@@ -4,8 +4,6 @@ import argparse
 import os
 import sys
 
-from libxmp.consts import XMP_NS_DC as NS_DC
-
 from portra.component.export import lr_export_lrtemplate
 from portra.component.export import xmp_export_full
 from portra.component.export import xmp_export_tonecurve
@@ -29,10 +27,6 @@ def dispatch(args):
     xmp = xmp_export_full(args.filename)
     if not xmp:
         print('XMP information could not be loaded from the file. Check to make sure you entered the correct filename.')
-        return -1
-
-    if xmp.get_property(NS_DC, 'format') != 'image/jpeg':
-        print('Input file must be a JPEG.')
         return -1
 
     output = xmp
