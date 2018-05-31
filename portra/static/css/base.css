@@ -37,8 +37,8 @@ a.header-links {
 	z-index: 0;
     background: white;
     transform: translateX(-360px);
-    transition-timing-function: ease-out;
-    transition-duration: 0.5s;
+    cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition-duration: 500ms;
 }
 
 .metadata-container section:first-child {

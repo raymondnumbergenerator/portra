@@ -5,13 +5,6 @@ from libxmp.consts import XMP_NS_DC as NS_DC
 from portra.component.tags import TC_TAGS_ARRAY
 from portra.component.tags import TC_TAGS_STRING
 
-### Adobe Lightroom values that are stored as strings.
-LR_STRING_TAGS = {
-    'CameraProfile',
-    'ProcessVersion',
-    'WhiteBalance',
-    'ToneCurveName2012'}
-
 def has_metadata(xmp):
     return xmp.does_property_exist(NS_DC, 'format')
 
@@ -54,7 +47,5 @@ def lr_get_settings(xmp, settings):
                 val = v
         except XMPError:
             print('Missing tag ' + option + ': using default value of ' + str(val)) # for debugging purposes
-        if option in LR_STRING_TAGS:
-            val = '\"' + val + '\"'
         s[option] = val
     return s

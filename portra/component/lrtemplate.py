@@ -1,6 +1,13 @@
 import re
 import uuid
 
+### Adobe Lightroom values that are stored as strings.
+LR_STRING_TAGS = {
+    'CameraProfile',
+    'ProcessVersion',
+    'WhiteBalance',
+    'ToneCurveName2012'}
+
 def escape(string):
     return '\"' + string + '\"'
 
@@ -39,6 +46,8 @@ class LRTemplate:
         for key, value in sorted(vals.items()):
             if not type(value) is dict:
                 value = re.sub('^\+', '', str(value))
+                if key in LR_STRING_TAGS:
+                    value = '\"' + value + '\"'
                 s = '\t' * indent + key + ' = ' + str(value) + ','
                 output.append(s)
             else:
