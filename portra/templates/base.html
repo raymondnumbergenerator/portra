@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Portra</title>
+
+    <!-- meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../static/favicon.ico"/>
+
+    <link rel="stylesheet" href="../static/css/base.css"/>
+
+    <!-- material design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-deep_purple.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+<body class="bg-light">
+    <header class="mdl-layout__header mdl-layout__header--transparent">
+        <div class="mdl-layout-icon"><img src="../static/portra.svg"></div>
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title" style="padding:20px">Portra</span>
+
+            <div class="mdl-layout-spacer"></div>
+
+            <button id="button-view"
+                class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                View
+            </button>
+            <button id="button-export"
+                class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                Export
+            </button>
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="button-export">
+                <li class="mdl-menu__item">XMP Sidecar</li>
+                <li class="mdl-menu__item">Tone Curve</li>
+                <li class="mdl-menu__item">Lightroom Settings</li>
+            </ul>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="button-view">
+                <a class="header-links" href="#basic"><li class="mdl-menu__item">Basic Metadata</li></a>
+                <a class="header-links" href="#detailed"><li class="mdl-menu__item">Detailed Metadata</li></a>
+                <a class="header-links" href="#lr"><li class="mdl-menu__item">Lightroom Settings</li></a>
+            </ul>
+        </div>
+    </header>
+    <div class="photo-container">
+        <img class="photo" src="../../pic_portrait.jpg">
+    </div>
+    <div class="metadata-container">
+        <section id="basic">
+            <div class="title">Basic Metadata</div>
+
+            <hr width=100%>
+
+            <div class="info-section">
+                <div class="sub-title">File Information</div>
+                <div class="info-container">
+                    <span class="info-title info-text">File Name</span>
+                    <span class="info-value info-text">DSC_1453.jpg</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Dimensions</span>
+                    <span class="info-value info-text">3729 x 5586</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Resolution</span>
+                    <span class="info-value info-text">20.8 MP</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">File Size</span>
+                    <span class="info-value info-text">19.0 MB</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Date Taken</span>
+                    <span class="info-value info-text">May 28, 2018</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Time Taken</span>
+                    <span class="info-value info-text">13:14:53</span>
+                </div>
+            </div>
+
+            <hr width=100%>
+
+            <div class="info-section">
+                <div class="sub-title">Camera and Lens</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Camera</span>
+                    <span class="info-value info-text">NIKON D750</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Lens</span>
+                    <span class="info-value info-text">24.0-70.0 mm f/2.8</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Focal Length</span>
+                    <span class="info-value info-text">24mm</span>
+                </div>
+            </div>
+
+            <hr width=100%>
+
+            <div class="info-section">
+                <div class="sub-title">Exposure</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Shutter Speed</span>
+                    <span class="info-value info-text">1/500s</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Aperture</span>
+                    <span class="info-value info-text">f/5.6</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">ISO</span>
+                    <span class="info-value info-text">100</span>
+                </div>
+            </div>
+
+            <hr width=100%>
+
+            <div class="info-section">
+                <div class="sub-title">Location</div>
+                <div class="info-container">
+                    <span class="info-title info-text">GPS</span>
+                    <span class="info-value info-text"></span>
+                </div>
+            </div>
+
+            <hr width=100%>
+
+        </section>
+        <section id="detailed">
+            <div class="title">Detailed Metadata</div>
+
+            <hr width=100%>
+
+            <div class="info-section">
+                <div class="sub-title">File Information</div>
+                <div class="info-container">
+                    <span class="info-title info-text">File Name</span>
+                    <span class="info-value info-text">DSC_1453.jpg</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Dimensions</span>
+                    <span class="info-value info-text">3729 x 5586</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Resolution</span>
+                    <span class="info-value info-text">20.8 MP</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">File Size</span>
+                    <span class="info-value info-text">19.0 MB</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Date Taken</span>
+                    <span class="info-value info-text">May 28, 2018</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Time Taken</span>
+                    <span class="info-value info-text">13:14:53</span>
+                </div>
+            </div>
+
+            <hr width=100%>
+
+            <div class="info-section">
+                <div class="sub-title">Camera and Lens</div>
+                <div class="title-center">Camera</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Camera</span>
+                    <span class="info-value info-text">NIKON D750</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Serial Number</span>
+                    <span class="info-value info-text">2095828</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Shutter Count</span>
+                    <span class="info-value info-text">1727</span>
+                </div>
+                <div class="title-center">Lens</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Lens</span>
+                    <span class="info-value info-text">24.0-70.0 mm f/2.8</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Lens ID</span>
+                    <span class="info-value info-text">147</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Focal Length</span>
+                    <span class="info-value info-text">24mm</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">35mm equiv.</span>
+                    <span class="info-value info-text">24mm</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Focus Distance</span>
+                    <span class="info-value info-text">3.35m</span>
+                </div>
+            </div>
+
+            <hr width=100%>
+
+            <div class="info-section">
+                <div class="sub-title">Exposure</div>
+                <div class="title-center">Exposure</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Shutter Speed</span>
+                    <span class="info-value info-text">1/500s</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Aperture</span>
+                    <span class="info-value info-text">f/5.6</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">ISO</span>
+                    <span class="info-value info-text">100</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Program</span>
+                    <span class="info-value info-text">Aperture Priority</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Compensation</span>
+                    <span class="info-value info-text">+1 EV</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Metering Mode</span>
+                    <span class="info-value info-text">Pattern</span>
+                </div>
+                <div class="title-center">Flash</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Flash</span>
+                    <span class="info-value info-text">Did not fire</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Energy</span>
+                    <span class="info-value info-text"></span>
+                </div>
+            </div>
+
+            <hr width=100%>
+
+            <div class="info-section">
+                <div class="sub-title">Location</div>
+                <div class="info-container">
+                    <span class="info-title info-text">GPS</span>
+                    <span class="info-value info-text"></span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Altitude</span>
+                    <span class="info-value info-text"></span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Direction</span>
+                    <span class="info-value info-text"></span>
+                </div>
+            </div>
+
+            <hr width=100%>
+        </section>
+        <section id="lr">
+            <div class="title">Lightroom Settings</div>
+
+            <hr width="100%">
+
+            <div class="info-section">
+                <div class="sub-title">Basic Tone</div>
+                <div class="info-subsection">
+                    <div class="info-container">
+                        <span class="info-title info-text">Temperature</span>
+                        <span class="slider temperature"></span>
+                        <span class="info-value info-text">50000</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Tint</span>
+                        <span class="slider tint"></span>
+                        <span class="info-value info-text">+16</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Tone</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Exposure</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">-1.10</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Contrast</span>
+                        <span class="slider reverse"></span>
+                        <span class="info-value info-text">-25</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="info-container">
+                        <span class="info-title info-text">Highlights</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Shadows</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Whites</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Blacks</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Presence</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Clarity</span>
+                        <span class="slider reverse"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Vibrance</span>
+                        <span class="slider saturation"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Saturation</span>
+                        <span class="slider saturation"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr width="100%">
+
+            <div class="info-section">
+                <div class="sub-title">Tone Curve</div>
+                <div class="info-subsection">
+                    <div class="title-center">RGB</div>
+                    <div class="info-subsection">
+                        <svg class="tonecurve" viewBox="0 0 255 255">
+                            <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
+
+                            <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+
+                            <path class="tonecurve-curve tc-rgb"></path>
+
+                            <g class="points-rgb">
+                                <g id="rgb-1"><circle class="tonecurve-point" cx="5" cy="206" r="3"><g id="rgb-1"></circle></g>
+                                <circle class="tonecurve-point" cx="9" cy="208" r="3"></circle>
+                                <circle class="tonecurve-point" cx="16" cy="207" r="3"></circle>
+                                <circle class="tonecurve-point" cx="39" cy="195" r="3"></circle>
+                                <circle class="tonecurve-point" cx="62" cy="177" r="3"></circle>
+                                <circle class="tonecurve-point" cx="91" cy="150" r="3"></circle>
+                                <circle class="tonecurve-point" cx="143" cy="100" r="3"></circle>
+                                <circle class="tonecurve-point" cx="168" cy="78" r="3"></circle>
+                                <circle class="tonecurve-point" cx="208" cy="44" r="3"></circle>
+                                <circle class="tonecurve-point" cx="255" cy="13" r="3"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Red</div>
+                    <div class="info-subsection">
+                        <svg class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                            <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
+
+                            <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+
+                            <path class="tonecurve-curve tc-red"></path>
+                            <g class="points-red">
+                                <circle class="tonecurve-point p-red" cx="5" cy="206" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="9" cy="208" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="16" cy="207" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="39" cy="195" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="62" cy="177" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="91" cy="150" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="143" cy="100" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="168" cy="78" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="208" cy="44" r="3"></circle>
+                                <circle class="tonecurve-point p-red" cx="255" cy="13" r="3"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Green</div>
+                    <div class="info-subsection">
+                        <svg class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                            <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
+
+                            <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+
+                            <path class="tonecurve-curve tc-green"></path>
+                            <g class="points-green">
+                                <circle class="tonecurve-point p-green" cx="5" cy="206" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="9" cy="208" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="16" cy="207" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="39" cy="195" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="62" cy="177" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="91" cy="150" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="143" cy="100" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="168" cy="78" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="208" cy="44" r="3"></circle>
+                                <circle class="tonecurve-point p-green" cx="255" cy="13" r="3"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Blue</div>
+                    <div class="info-subsection">
+                        <svg class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                            <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
+
+                            <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+
+                            <path class="tonecurve-curve tc-blue"></path>
+                            <g class="points-blue">
+                                <circle class="tonecurve-point p-blue" cx="5" cy="206" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="9" cy="208" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="16" cy="207" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="39" cy="195" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="62" cy="177" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="91" cy="150" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="143" cy="100" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="168" cy="78" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="208" cy="44" r="3"></circle>
+                                <circle class="tonecurve-point p-blue" cx="255" cy="13" r="3"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Region</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Highlights</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Lights</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Darks</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Shadows</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr width="100%">
+
+            <div class="info-section">
+                <div class="sub-title">HSL</div>
+                <div class="info-subsection">
+                    <div class="title-center">Hue</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Red</span>
+                        <span class="slider hue-red"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Orange</span>
+                        <span class="slider hue-orange"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Yellow</span>
+                        <span class="slider hue-yellow"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Green</span>
+                        <span class="slider hue-green"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Aqua</span>
+                        <span class="slider hue-aqua"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Blue</span>
+                        <span class="slider hue-blue"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Purple</span>
+                        <span class="slider hue-purple"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Magenta</span>
+                        <span class="slider hue-magenta"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Saturation</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Red</span>
+                        <span class="slider saturation-red"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Orange</span>
+                        <span class="slider saturation-orange"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Yellow</span>
+                        <span class="slider saturation-yellow"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Green</span>
+                        <span class="slider saturation-green"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Aqua</span>
+                        <span class="slider saturation-aqua"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Blue</span>
+                        <span class="slider saturation-blue"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Purple</span>
+                        <span class="slider saturation-purple"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Magenta</span>
+                        <span class="slider saturation-magenta"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Luminance</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Red</span>
+                        <span class="slider saturation-red"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Orange</span>
+                        <span class="slider saturation-orange"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Yellow</span>
+                        <span class="slider saturation-yellow"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Green</span>
+                        <span class="slider saturation-green"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Aqua</span>
+                        <span class="slider saturation-aqua"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Blue</span>
+                        <span class="slider saturation-blue"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Purple</span>
+                        <span class="slider saturation-purple"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Magenta</span>
+                        <span class="slider saturation-magenta"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr width="100%">
+
+            <div class="info-section">
+                <div class="sub-title">Split Toning</div>
+                <div class="info-subsection">
+                    <div class="title-center">Highlights</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Hue</span>
+                        <span class="slider saturation"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Saturation</span>
+                        <span class="slider saturation-red"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="info-container">
+                        <span class="info-title info-text">Balance</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="title-center">Shadows</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Hue</span>
+                    <span class="slider saturation"></span>
+                    <span class="info-value info-text">0</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Saturation</span>
+                    <span class="slider saturation-red"></span>
+                    <span class="info-value info-text">0</span>
+                </div>
+            </div>
+
+            <hr width="100%">
+
+            <div class="info-section">
+                <div class="sub-title">Detail</div>
+                <div class="info-subsection">
+                    <div class="title-center">Sharpening</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Amount</span>
+                        <span class="slider sharpening"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Radius</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Detail</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Masking</span>
+                        <span class="slider reverse"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Noise Reduction</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Luminance</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Detail</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Contrast</span>
+                        <span class="slider reverse"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="info-container">
+                        <span class="info-title info-text">Color</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Detail</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Smoothness</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr width="100%">
+
+            <div class="info-section">
+                <div class="sub-title">Effects</div>
+                <div class="info-subsection">
+                    <div class="title-center">Post-Crop Vignetting</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Style</span>
+                        <span class="info-value info-text">Highlight Priority</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Amount</span>
+                        <span class="slider outwards"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Midpoint</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Roundess</span>
+                        <span class="slider outwards"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Feather</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Highlights</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Grain</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Amount</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Size</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Roughness</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="info-container">
+                        <span class="info-title info-text">Dehaze</span>
+                        <span class="slider"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr width="100%">
+
+            <div class="info-section">
+                <div class="sub-title">Camera Calibration</div>
+                <div class="info-subsection">
+                    <div class="info-container">
+                        <span class="info-title info-text">Process</span>
+                        <span class="info-value info-text">2012</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="info-container">
+                        <span class="info-title info-text">Profile</span>
+                        <span class="info-value info-text">Adobe Standard</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Shadows</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Tint</span>
+                        <span class="slider tint"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Red Primary</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Hue</span>
+                        <span class="slider hue-red"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Saturation</span>
+                        <span class="slider saturation-red"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Green Primary</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Hue</span>
+                        <span class="slider hue-green"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Saturation</span>
+                        <span class="slider saturation-green"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+                <hr width="100%">
+                <div class="info-subsection">
+                    <div class="title-center">Blue Primary</div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Hue</span>
+                        <span class="slider hue-blue"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="info-title info-text">Saturation</span>
+                        <span class="slider saturation-blue"></span>
+                        <span class="info-value info-text">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr width="100%">
+        </section>
+
+        <div id="tc-rgb-tooltip">
+            <div class="mdl-tooltip tonecurve-tooltip" data-mdl-for="rgb-1">2.0 / 19.2%</div>
+        </div>
+        <div id="tc-red-tooltip">
+        </div>
+        <div id="tc-blue-tooltip">
+        </div>
+        <div id="tc-green-tooltip">
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script src="../static/js/beziercurve.js"></script>
+<script>
+    const points_rgb = [
+      [5, 206],
+      [9, 208],
+      [16, 207],
+      [39, 195],
+      [62, 177],
+      [91, 150],
+      [143, 100],
+      [168, 78],
+      [208, 44],
+      [255, 13]
+    ]
+
+    const tonecurve_rgb = document.getElementsByClassName('tonecurve-curve tc-rgb')[0];
+    const rgb_points = document.getElementsByClassName('points-rgb')[0];
+    tonecurve_rgb.setAttribute("d", svgPath(points_rgb, bezierCommand));
+
+    const tonecurve_red = document.getElementsByClassName('tonecurve-curve tc-red')[0];
+    const red_points = document.getElementsByClassName('points-red')[0];
+    tonecurve_red.setAttribute("d", svgPath(points_rgb, bezierCommand));
+
+    const tonecurve_green = document.getElementsByClassName('tonecurve-curve tc-green')[0];
+    const green_points = document.getElementsByClassName('points-green')[0];
+    tonecurve_green.setAttribute("d", svgPath(points_rgb, bezierCommand));
+
+    const tonecurve_blue = document.getElementsByClassName('tonecurve-curve tc-blue')[0];
+    const blue_points = document.getElementsByClassName('points-blue')[0];
+    tonecurve_blue.setAttribute("d", svgPath(points_rgb, bezierCommand));
+</script>

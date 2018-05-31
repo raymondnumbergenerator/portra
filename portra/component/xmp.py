@@ -1,5 +1,3 @@
-import re
-
 from libxmp import XMPError
 from libxmp.consts import XMP_NS_CameraRaw as NS_CRS
 
@@ -54,7 +52,5 @@ def lr_get_settings(xmp, settings):
             print('Missing tag ' + option + ': using default value of ' + str(val)) # for debugging purposes
         if option in LR_STRING_TAGS:
             val = '\"' + val + '\"'
-        else:
-            val = re.sub('^\+', '', str(val))
         s[option] = val
     return s

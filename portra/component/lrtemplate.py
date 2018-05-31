@@ -1,3 +1,4 @@
+import re
 import uuid
 
 def escape(string):
@@ -37,6 +38,7 @@ class LRTemplate:
         output = []
         for key, value in sorted(vals.items()):
             if not type(value) is dict:
+                value = re.sub('^\+', '', str(value))
                 s = '\t' * indent + key + ' = ' + str(value) + ','
                 output.append(s)
             else:
