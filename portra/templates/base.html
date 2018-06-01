@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-deep_purple.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
+
 <body class="bg-light">
     <header class="mdl-layout__header mdl-layout__header--transparent">
         <div class="mdl-layout-icon"><img src="{{ url_for('static', filename='portra.svg') }}"></div>
@@ -22,18 +23,30 @@
             <span class="mdl-layout-title" style="padding:20px">Portra</span>
 
             <div class="mdl-layout-spacer"></div>
-            <a href="https://github.com/raymondnumbergenerator/portra">
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">Github</button>
-            </a>
 
+            <button id="button-view"
+                class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                Upload
+            </button>
             <button id="button-view"
                 class="mdl-button mdl-js-button mdl-js-ripple-effect">
                 View
             </button>
-            <button id="button-export"
-                class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                Export
-            </button>
+            {% if image_url %}
+                <button id="button-export"
+                    class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                    Export
+                </button>
+            {% else %}
+                <button disabled id="button-export"
+                    class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                    Export
+                </button>
+            {% endif %}
+
+            <a href="https://github.com/raymondnumbergenerator/portra">
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">Github</button>
+            </a>
 
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="button-export">
@@ -51,11 +64,22 @@
                     <li disabled class="mdl-menu__item">Lightroom Settings</li>
                 {% endif %}
             </ul>
+
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="button-view">
                 <a class="header-links" href="#basic"><li class="mdl-menu__item">Basic Metadata</li></a>
-                <a class="header-links" href="#detailed"><li class="mdl-menu__item">Detailed Metadata</li></a>
-                <a class="header-links" href="#lr"><li class="mdl-menu__item">Lightroom Settings</li></a>
+
+                {% if exif %}
+                    <a class="header-links" href="#detailed"><li class="mdl-menu__item">Detailed Metadata</li></a>
+                {% else %}
+                    <li disabled class="mdl-menu__item">Detailed Metadata</li>
+                {% endif %}
+
+                {% if lightroom %}
+                    <a class="header-links" href="#lr"><li class="mdl-menu__item">Lightroom Settings</li></a>
+                {% else %}
+                    <li disabled class="mdl-menu__item">Lightroom Settings</li>
+                {% endif %}
             </ul>
         </div>
     </header>
@@ -77,6 +101,10 @@
                 <div class="info-container">
                     <span class="info-title info-text">Resolution</span>
                     <span class="info-value info-text">{{ metadata['Resolution'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Aspect Ratio</span>
+                    <span class="info-value info-text">{{ metadata['AspectRatio'] }}</span>
                 </div>
                 <div class="info-container">
                     <span class="info-title info-text">File Size</span>
@@ -1083,6 +1111,7 @@
             </div>
 
             <hr width="100%">
+
         </section>
 
         <div id="tc-rgb-tooltip"></div>

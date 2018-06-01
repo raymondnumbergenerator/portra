@@ -1,6 +1,9 @@
 VENV := venv
 BIN := $(VENV)/bin
 
+export PORTRA_SETTINGS := $(CURDIR)/settings.py
+export DEFAULT_IMAGES_PATH := $(CURDIR)/i
+
 $(VENV): setup.py requirements.txt
 	python ./vendor/venv-update venv= venv -p python3 install= -r requirements.txt
 
@@ -11,6 +14,9 @@ clean:
 .PHONY: dev
 dev:
 	$(BIN)/python run.py
+
+settings.py:
+	ln -fs settings/settings.py settings.py
 
 .PHONY: update-requirements
 update-requirements:

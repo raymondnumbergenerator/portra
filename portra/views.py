@@ -4,6 +4,7 @@ import os
 from flask import render_template
 from flask import Response
 from flask import url_for
+from flask import send_from_directory
 
 from portra.app import app
 from portra.component.export import lr_export_lrtemplate
@@ -15,11 +16,14 @@ from portra.component.tags import PROCESS_VERSION
 from portra.component.xmp import has_metadata
 from portra.component.xmp import exif_metadata
 
-from portra.utils import get_file_size
-from portra.utils import get_img_dimensions
+from portra.utils import get_image_metadata
 from portra.utils import get_img_file
 from portra.utils import get_img_url
 from portra.utils import tc_format_js
+
+@app.route('/img/<path:filename>')
+def img(filename):
+    return send_from_directory(app.config['IMAGES_PATH'], filename)
 
 @app.route('/', methods={'GET', 'POST'})
 def home():
@@ -32,7 +36,7 @@ def home():
         tonecurve={},
     )
 
-@app.route('/i/<filename>')
+@app.route('/<filename>', methods={'GET', 'POST'})
 def image(filename):
     file = get_img_file(filename)
     if not os.path.isfile(file):
@@ -46,9 +50,7 @@ def image(filename):
         )
 
     xmp = xmp_export_full(file)
-    met = {}
-    met['Dimensions'], met['Resolution'], met['AspectRatio'] = get_img_dimensions(file)
-    met['FileSize'] = get_file_size(file)
+    met = get_image_metadata(file)
     if not has_metadata(xmp):
         return render_template(
             'base.html',
@@ -76,20 +78,20 @@ def image(filename):
         }
     )
 
-@app.route('/i/<filename>/xmp')
+@app.route('/<filename>/xmp')
 def xmp(filename):
     file = get_img_file(filename)
     xmp = xmp_export_full(file)
     return Response(str(xmp), mimetype='text/plain')
 
-@app.route('/i/<filename>/tc')
+@app.route('/<filename>/tc')
 def tc(filename):
     file = get_img_file(filename)
     xmp = xmp_export_full(file)
     tc = xmp_export_tonecurve(xmp)
     return Response(str(tc), mimetype='text/plain')
 
-@app.route('/i/<filename>/lrt')
+@app.route('/<filename>/lrt')
 def lrt(filename):
     file = get_img_file(filename)
     xmp = xmp_export_full(file)
