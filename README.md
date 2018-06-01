@@ -21,6 +21,6 @@ A command line tool `portracl` is also provided that provides the same backend f
 
 ### Development Setup
 1. Fork this repository and clone your fork.
-2. Add this repository as the upstream remote with `git remote add upstream <URL for this repository>`
+2. Add this repository as the upstream remote with `git remote add upstream https://github.com/raymondnumbergenerator/portra.git`
 3. `make venv` will set up the virtual environment.
 4. `make dev` will run the development copy.
