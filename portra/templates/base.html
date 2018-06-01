@@ -22,6 +22,9 @@
             <span class="mdl-layout-title" style="padding:20px">Portra</span>
 
             <div class="mdl-layout-spacer"></div>
+            <a href="https://github.com/raymondnumbergenerator/portra">
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">Github</button>
+            </a>
 
             <button id="button-view"
                 class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -34,9 +37,9 @@
 
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="button-export">
-                <a class="header-links" href="{{ request.path }}/xmp"><li class="mdl-menu__item">XMP Sidecar</li></a>
-                <a class="header-links" href="{{ request.path }}/tc"><li class="mdl-menu__item">Tone Curve</li></a>
-                <a class="header-links" href="{{ request.path }}/lrt"><li class="mdl-menu__item">Lightroom Settings</li></a>
+                <a class="header-links" href="{{ request.path }}/xmp"><li class="mdl-menu__item">XMP sidecar (.xmp)</li></a>
+                <a class="header-links" href="{{ request.path }}/tc"><li class="mdl-menu__item">Tone Curve (.xmp)</li></a>
+                <a class="header-links" href="{{ request.path }}/lrt"><li class="mdl-menu__item">Lightroom Preset (.lrtemplate)</li></a>
             </ul>
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="button-view">
@@ -47,7 +50,6 @@
         </div>
     </header>
     <div class="photo-container">
-        <!-- <img class="photo" src="../../pic_portrait.jpg"> -->
         <img class="photo" src=" {{ image_url }}">
     </div>
     <div class="metadata-container">
@@ -1078,7 +1080,6 @@
         <div id="tc-blue-tooltip"></div>
         <div id="tc-green-tooltip"></div>
     </div>
-
 </body>
 
 </html>
@@ -1098,34 +1099,36 @@
         }
     }
 
-    const points_rgb = {{ tonecurve['rgb'] }}
-    const points_red = {{ tonecurve['red'] }}
-    const points_green = {{ tonecurve['green'] }}
-    const points_blue = {{ tonecurve['blue'] }}
+    {% if tonecurve %}
+        const points_rgb = {{ tonecurve['rgb'] }}
+        const points_red = {{ tonecurve['red'] }}
+        const points_green = {{ tonecurve['green'] }}
+        const points_blue = {{ tonecurve['blue'] }}
 
-    plot_points(points_rgb, 'rgb');
-    put_tooltips(points_rgb, 'rgb')
-    const tonecurve_rgb = document.getElementsByClassName('tonecurve-curve tc-rgb')[0];
-    const rgb_points = document.getElementsByClassName('points-rgb')[0];
-    tonecurve_rgb.setAttribute("d", svgPath(points_rgb, bezierCommand));
+        plot_points(points_rgb, 'rgb');
+        put_tooltips(points_rgb, 'rgb')
+        const tonecurve_rgb = document.getElementsByClassName('tonecurve-curve tc-rgb')[0];
+        const rgb_points = document.getElementsByClassName('points-rgb')[0];
+        tonecurve_rgb.setAttribute("d", svgPath(points_rgb, bezierCommand));
 
-    plot_points(points_red, 'red');
-    put_tooltips(points_red, 'red')
-    const tonecurve_red = document.getElementsByClassName('tonecurve-curve tc-red')[0];
-    const red_points = document.getElementsByClassName('points-red')[0];
-    tonecurve_red.setAttribute("d", svgPath(points_red, bezierCommand));
+        plot_points(points_red, 'red');
+        put_tooltips(points_red, 'red')
+        const tonecurve_red = document.getElementsByClassName('tonecurve-curve tc-red')[0];
+        const red_points = document.getElementsByClassName('points-red')[0];
+        tonecurve_red.setAttribute("d", svgPath(points_red, bezierCommand));
 
-    plot_points(points_green, 'green');
-    put_tooltips(points_green, 'green')
-    const tonecurve_green = document.getElementsByClassName('tonecurve-curve tc-green')[0];
-    const green_points = document.getElementsByClassName('points-green')[0];
-    tonecurve_green.setAttribute("d", svgPath(points_green, bezierCommand));
+        plot_points(points_green, 'green');
+        put_tooltips(points_green, 'green')
+        const tonecurve_green = document.getElementsByClassName('tonecurve-curve tc-green')[0];
+        const green_points = document.getElementsByClassName('points-green')[0];
+        tonecurve_green.setAttribute("d", svgPath(points_green, bezierCommand));
 
-    plot_points(points_blue, 'blue');
-    put_tooltips(points_blue, 'blue')
-    const tonecurve_blue = document.getElementsByClassName('tonecurve-curve tc-blue')[0];
-    const blue_points = document.getElementsByClassName('points-blue')[0];
-    tonecurve_blue.setAttribute("d", svgPath(points_blue, bezierCommand));
+        plot_points(points_blue, 'blue');
+        put_tooltips(points_blue, 'blue')
+        const tonecurve_blue = document.getElementsByClassName('tonecurve-curve tc-blue')[0];
+        const blue_points = document.getElementsByClassName('points-blue')[0];
+        tonecurve_blue.setAttribute("d", svgPath(points_blue, bezierCommand));
+    {% endif %}
 
     {% if exif['DateTimeOriginal'] %}
         var datetime = new Date({{ exif['DateTimeOriginal']|tojson }});
