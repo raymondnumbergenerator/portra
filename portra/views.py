@@ -45,6 +45,7 @@ def upload():
         filename = secure_filename(file.filename)
         saved_filename = save_file(file)
         return redirect(url_for('image', filename=saved_filename))
+    return redirect(request.url)
 
 @app.route('/', methods={'GET', 'POST'})
 def home():
