@@ -18,16 +18,30 @@
 
 <body class="bg-light">
     <header class="mdl-layout__header mdl-layout__header--transparent">
-        <div class="mdl-layout-icon"><img src="{{ url_for('static', filename='portra.svg') }}"></div>
+        <div class="mdl-layout-icon">
+            <img src="{{ url_for('static', filename='portra.svg') }}">
+        </div>
+        
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title" style="padding:20px">Portra</span>
+            <a class="header-links"
+                href="{{ url_for('home') }}">
+                <span class="mdl-layout-title" style="padding:20px">Portra</span>
+            </a>
 
             <div class="mdl-layout-spacer"></div>
 
-            <button id="button-view"
-                class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                Upload
-            </button>
+            <form method=post enctype=multipart/form-data>
+                <label for="image-upload"
+                    class="mdl-button button-upload">
+                    Upload
+                </label>
+
+                <input id="image-upload" class="file-"
+                    type=file name=file
+                    onchange="this.form.submit();"
+                    style="display: none">
+            </form>
+
             <button id="button-view"
                 class="mdl-button mdl-js-button mdl-js-ripple-effect">
                 View

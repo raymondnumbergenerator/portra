@@ -4,6 +4,7 @@
 *.jpg
 *.pyc
 *.xmp
+/SECRET_KEY
 /build
 /dist
 /exempi

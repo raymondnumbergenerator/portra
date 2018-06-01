@@ -1,8 +1,6 @@
 import os
 
-from flask import url_for
 from PIL import Image
-from portra.app import app
 
 ONE_KB = 2**10
 ONE_MB = 2**20
@@ -31,12 +29,6 @@ def tc_format_js(arr):
     for i in range(0, len(l), 2):
         lst.append([int(l[i]), 255 - int(l[i+1])])
     return lst
-
-def get_img_file(filename):
-    return os.path.join(app.config['IMAGES_PATH'], filename)
-
-def get_img_url(filename):
-    return url_for('img', filename=filename)
 
 def parse_exif_val(val):
     """
