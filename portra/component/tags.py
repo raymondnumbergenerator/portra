@@ -16,7 +16,7 @@ LR_TONE = {
 LR_TONE_CURVE = {
     'ParametricDarks': 0,
     'ParametricHighlightSplit': 75,
-    'ParametricHightlights': 0,
+    'ParametricHighlights': 0,
     'ParametricLights': 0,
     'ParametricMidtoneSplit': 50,
     'ParametricShadowSplit': 25,
@@ -77,9 +77,12 @@ LR_EFFECTS_VIGNETTE = {
     'PostCropVignetteRoundness': 0,
     'PostCropVignetteStyle': 1}
 LR_SPLIT_TONING = {
-    'EnableSplitToning': 'true', 'SplitToningBalance': 0,
-    'SplitToningHighlightHue': 0, 'SplitToningHighlightSaturation': 0,
-    'SplitToningShadowHue': 0, 'SplitToningShadowSaturation': 0}
+    'EnableSplitToning': 'true',
+    'SplitToningBalance': 0,
+    'SplitToningHighlightHue': 0,
+    'SplitToningHighlightSaturation': 0,
+    'SplitToningShadowHue': 0,
+    'SplitToningShadowSaturation': 0}
 LR_DETAIL = {
     'EnableDetail': 'true'}
 LR_DETAIL_LUMINANCE = {
@@ -95,9 +98,20 @@ LR_CAMERA_CALIBRATION = {
     'CameraProfile': 'Adobe Standard',
     'EnableCalibration': 'true',
     'ShadowTint': 0,
-    'RedHue': 0, 'RedSaturation': 0,
-    'GreenHue': 0, 'GreenSaturation': 0,
-    'BlueHue': 0, 'BlueSaturation': 0}
+    'RedHue': 0,
+    'RedSaturation': 0,
+    'GreenHue': 0,
+    'GreenSaturation': 0,
+    'BlueHue': 0,
+    'BlueSaturation': 0}
+
+### Mapping from Adobe Camera Raw values to string values
+VIGNETTE_STYLE = ['', 'Highlight Priority', 'Color Priority', 'Paint Overlay']
+PROCESS_VERSION = {
+    '6.7': 2012,
+    '5.7': 2010,
+    '5.0': 2003
+}
 
 ### Adobe Camera Raw Tone Curve settings that are stored as strings.
 TC_TAGS_STRING = ['Version', 'ToneCurveName', 'ToneCurveName2012', 'HasSettings']

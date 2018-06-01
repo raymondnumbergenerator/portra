@@ -6,3 +6,4 @@ MarkupSafe==1.0
 python-xmp-toolkit==2.0.1
 pytz==2018.4
 Werkzeug==0.14.1
+Pillow==5.1.0

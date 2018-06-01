@@ -99,9 +99,9 @@ a.header-links {
     width: 130px;
     display: inline-block;
     vertical-align: middle;
-    height: 3px;
+    height: 4px;
     background: linear-gradient(to right, #535353 0%, #DDDDDD 100%);
-    border: 1px rgba(0,0,0,0.54) solid;
+    border: 1px rgba(0, 0, 0, 0.54) solid;
     border-radius: 4px;
 }
 .slider.reverse {
@@ -169,6 +169,17 @@ a.header-links {
 }
 .slider.sharpening {
     background: linear-gradient(to right, #636363 0%, #6E6161 50%, #907C7C 70%, #BA5F60 90%, #C56768 100%);
+}
+
+.slider-handle {
+    display: inline-block;
+    position: relative;
+    height: 10px;
+    width: 4px;
+    top: -6px;
+    background: #BBBBBB;
+    border: 1px rgba(0, 0, 0, 0.54) solid;
+    border-radius: 4px;
 }
 
 .info-container > .info-value {

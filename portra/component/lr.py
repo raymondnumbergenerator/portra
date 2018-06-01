@@ -9,6 +9,11 @@ LR_ARRAY_TAGS = {
     'ToneCurvePV2012Green',
     'ToneCurvePV2012Red'}
 
+def crs_full_all(xmp):
+    return crs_full(xmp, True, True, True, True, True, True, True, True, True,
+                        True, True, True, True, True, True, True, True, True,
+                        True, True, True, True)
+
 def crs_full(xmp, wb, exposure, contrast, highlights,
                 shadows, white, black, clarity, tc,
                 treatment, adjustments, saturation, vibrance,
@@ -17,6 +22,7 @@ def crs_full(xmp, wb, exposure, contrast, highlights,
     """
     Returns a dictionary of Adobe Camera Raw parameters from the .xmp file.
     The remaining arguments are booleans which determine the parameters included.
+    Refer to tags.py for all the available values.
     """
     crs = {}
     wb and crs.update(lr_white_balance(xmp))
