@@ -37,9 +37,19 @@
 
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="button-export">
-                <a class="header-links" href="{{ request.path }}/xmp"><li class="mdl-menu__item">XMP sidecar (.xmp)</li></a>
-                <a class="header-links" href="{{ request.path }}/tc"><li class="mdl-menu__item">Tone Curve (.xmp)</li></a>
-                <a class="header-links" href="{{ request.path }}/lrt"><li class="mdl-menu__item">Lightroom Preset (.lrtemplate)</li></a>
+                {% if image_url %}
+                    <a class="header-links" href="{{ request.path }}/xmp"><li class="mdl-menu__item">XMP Sidecar</li></a>
+                {% else %}
+                    <li disabled class="mdl-menu__item">XMP Sidecar</li>
+                {% endif %}
+
+                {% if lightroom %}
+                    <a class="header-links" href="{{ request.path }}/tc"><li class="mdl-menu__item">Tone Curves</li></a>
+                    <a class="header-links" href="{{ request.path }}/lrt"><li class="mdl-menu__item">Lightroom Settings</li></a>
+                {% else %}
+                    <li disabled class="mdl-menu__item">Tone Curves</li>
+                    <li disabled class="mdl-menu__item">Lightroom Settings</li>
+                {% endif %}
             </ul>
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="button-view">
