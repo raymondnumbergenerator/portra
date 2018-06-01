@@ -25,6 +25,9 @@ from portra.utils import tc_format_js
 def home():
     return render_template(
         'base.html',
+        image_url="",
+        metadata={},
+        exif={},
         lightroom={},
         tonecurve={},
     )
