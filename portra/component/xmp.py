@@ -72,18 +72,18 @@ def exif_metadata(xmp):
             pass
 
     if 'ApproximateFocusDistance' in exif:
-        exif['ApproximateFocusDistance'] = str(parse_exif_val(exif['ApproximateFocusDistance'])) + 'm'
+        exif['ApproximateFocusDistance'] = str(parse_exif_val(exif['ApproximateFocusDistance'])) + ' m'
 
     if xmp.does_property_exist(NS_EXIF, 'FocalLength'):
         exif['FocalLength'] = xmp.get_property(NS_EXIF, 'FocalLength')
-        exif['FocalLength'] = str(int(parse_exif_val(exif['FocalLength']))) + 'mm'
+        exif['FocalLength'] = str(int(parse_exif_val(exif['FocalLength']))) + ' mm'
 
     if xmp.does_property_exist(NS_EXIF, 'FocalLengthIn35mmFilm'):
         exif['FocalLengthIn35mmFilm'] = xmp.get_property(NS_EXIF, 'FocalLengthIn35mmFilm')
-        exif['FocalLengthIn35mmFilm'] = str(int(parse_exif_val(exif['FocalLengthIn35mmFilm']))) + 'mm'
+        exif['FocalLengthIn35mmFilm'] = str(int(parse_exif_val(exif['FocalLengthIn35mmFilm']))) + ' mm'
 
     if xmp.does_property_exist(NS_EXIF, 'ExposureTime'):
-        exif['ExposureTime'] = xmp.get_property(NS_EXIF, 'ExposureTime') + 's'
+        exif['ExposureTime'] = xmp.get_property(NS_EXIF, 'ExposureTime') + ' s'
 
     if xmp.does_property_exist(NS_EXIF, 'FNumber'):
         exif['FNumber'] = xmp.get_property(NS_EXIF, 'FNumber')
@@ -186,6 +186,6 @@ def lr_get_settings(xmp, settings):
             if v:
                 val = v
         except XMPError:
-            print('Missing tag ' + option + ': using default value of ' + str(val)) # for debugging purposes
+            pass
         s[option] = val
     return s
