@@ -16,6 +16,10 @@ clean:
 dev:
 	$(BIN)/python run.py
 
+.PHONY: secret
+secret:
+	openssl rand -base64 32 >> SECRET_KEY
+
 settings.py:
 	ln -fs settings/settings.py settings.py
 
