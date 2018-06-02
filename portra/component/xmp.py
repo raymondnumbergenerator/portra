@@ -138,7 +138,7 @@ def exif_metadata(xmp):
 
     if xmp.does_property_exist(NS_EXIF, 'Flash/exif:Fired'):
         flash = xmp.get_property(NS_EXIF, 'Flash/exif:Fired')
-        if flash:
+        if flash == 'True':
             exif['Flash'] = 'Fired'
         else:
             exif['Flash'] = 'Did not fire'
