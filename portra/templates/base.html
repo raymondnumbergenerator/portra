@@ -509,22 +509,38 @@
                     <div class="title-center">Region</div>
                     <div class="info-container">
                         <span class="info-title info-text">Highlights</span>
-                        <span class="slider"></span>
+                        <span class="slider">
+                            {% if lightroom %}
+                                <span class="slider-handle" style="margin-left: {{ (lightroom['ParametricHighlights']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                            {% endif %}
+                        </span>
                         <span class="info-value info-text">{{ lightroom['ParametricHighlights'] }}</span>
                     </div>
                     <div class="info-container">
                         <span class="info-title info-text">Lights</span>
-                        <span class="slider"></span>
+                        <span class="slider">
+                            {% if lightroom %}
+                                <span class="slider-handle" style="margin-left: {{ (lightroom['ParametricLights']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                            {% endif %}
+                        </span>
                         <span class="info-value info-text">{{ lightroom['ParametricLights'] }}</span>
                     </div>
                     <div class="info-container">
                         <span class="info-title info-text">Darks</span>
-                        <span class="slider"></span>
+                        <span class="slider">
+                            {% if lightroom %}
+                                <span class="slider-handle" style="margin-left: {{ (lightroom['ParametricDarks']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                            {% endif %}
+                        </span>
                         <span class="info-value info-text">{{ lightroom['ParametricDarks'] }}</span>
                     </div>
                     <div class="info-container">
                         <span class="info-title info-text">Shadows</span>
-                        <span class="slider"></span>
+                        <span class="slider">
+                            {% if lightroom %}
+                                <span class="slider-handle" style="margin-left: {{ (lightroom['ParametricShadows']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                            {% endif %}
+                        </span>
                         <span class="info-value info-text">{{ lightroom['ParametricShadows'] }}</span>
                     </div>
                 </div>
