@@ -432,7 +432,7 @@
                 <div class="info-subsection">
                     <div class="title-center">RGB</div>
                     <div class="info-subsection">
-                        <svg class="tonecurve" viewBox="0 0 255 255">
+                        <svg id="tc-rgb" class="tonecurve" viewBox="0 0 255 255">
                             <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
@@ -441,9 +441,9 @@
                             <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
 
-                            <path class="tonecurve-curve tc-rgb"></path>
-
-                            <g class="points-rgb"></g>
+                            <path id="tc-curve-rgb" class="tonecurve-curve curve-rgb"></path>
+                            <g id="tc-crushed-rgb"></g>
+                            <g id="points-rgb"></g>
                         </svg>
                     </div>
                 </div>
@@ -451,7 +451,7 @@
                 <div class="info-subsection">
                     <div class="title-center">Red</div>
                     <div class="info-subsection">
-                        <svg class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                        <svg id="tc-red" class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
                             <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
@@ -460,8 +460,9 @@
                             <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
 
-                            <path class="tonecurve-curve tc-red"></path>
-                            <g class="points-red"></g>
+                            <path id="tc-curve-red" class="tonecurve-curve curve-red"></path>
+                            <g id="tc-crushed-red"></g>
+                            <g id="points-red"></g>
                         </svg>
                     </div>
                 </div>
@@ -469,7 +470,7 @@
                 <div class="info-subsection">
                     <div class="title-center">Green</div>
                     <div class="info-subsection">
-                        <svg class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                        <svg id="tc-green" class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
                             <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
@@ -478,8 +479,9 @@
                             <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
 
-                            <path class="tonecurve-curve tc-green"></path>
-                            <g class="points-green"></g>
+                            <path id="tc-curve-green" class="tonecurve-curve curve-green"></path>
+                            <g id="tc-crushed-green"></g>
+                            <g id="points-green"></g>
                         </svg>
                     </div>
                 </div>
@@ -487,7 +489,7 @@
                 <div class="info-subsection">
                     <div class="title-center">Blue</div>
                     <div class="info-subsection">
-                        <svg class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                        <svg id="tc-blue" class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
                             <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
@@ -496,8 +498,9 @@
                             <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
 
-                            <path class="tonecurve-curve tc-blue"></path>
-                            <g class="points-blue"></g>
+                            <path id="tc-curve-blue" class="tonecurve-curve curve-blue"></path>
+                            <g id="tc-crushed-blue"></g>
+                            <g id="points-blue"></g>
                         </svg>
                     </div>
                 </div>
@@ -1140,7 +1143,7 @@
 <script src="{{ url_for('static', filename='js/beziercurve.js') }}"></script>
 <script>
     function plot_points(points, type) {
-        var elem = document.getElementsByClassName('points-' + type)[0];
+        var elem = document.getElementById('points-' + type);
         for (var i = 0; i < points.length; i++) {
             elem.innerHTML += `<g id="${type}-${i}"><circle class="tonecurve-point p-${type}" cx="${points[i][0]}" cy="${points[i][1]}" r="3"></circle></g>`;
         }
@@ -1149,6 +1152,15 @@
         var elem = document.getElementById('tc-' + type + '-tooltip');
         for (var i = 0; i < points.length; i++) {
             elem.innerHTML += `<div class="mdl-tooltip tonecurve-tooltip" data-mdl-for="${type}-${i}">${(points[i][0] / 255 * 100).toFixed(1)} / ${((255 - points[i][1]) / 255 * 100).toFixed(1)}%</div>`
+        }
+    }
+    function fix_crushed_tc (points, type) {
+        var elem = document.getElementById('tc-crushed-' + type);
+        if (points[0][0] != 0) {
+            elem.innerHTML += `<path class="tonecurve-curve curve-${type}" d="M0 ${points[0][1]} ${points[0][0]} ${points[0][1]}"></path>`
+        }
+        if (points[points.length - 1][0] != 255) {
+            elem.innerHTML += `<path class="tonecurve-curve curve-${type}" d="M255 ${points[points.length - 1][1]} ${points[points.length - 1][0]} ${points[points.length - 1][1]}"></path>`
         }
     }
 
@@ -1160,27 +1172,31 @@
 
         plot_points(points_rgb, 'rgb');
         put_tooltips(points_rgb, 'rgb')
-        const tonecurve_rgb = document.getElementsByClassName('tonecurve-curve tc-rgb')[0];
-        const rgb_points = document.getElementsByClassName('points-rgb')[0];
+        const tonecurve_rgb = document.getElementById('tc-curve-rgb');
+        const rgb_points = document.getElementById('points-rgb');
         tonecurve_rgb.setAttribute("d", svgPath(points_rgb, bezierCommand));
+        fix_crushed_tc(points_rgb, 'rgb')
 
         plot_points(points_red, 'red');
         put_tooltips(points_red, 'red')
-        const tonecurve_red = document.getElementsByClassName('tonecurve-curve tc-red')[0];
-        const red_points = document.getElementsByClassName('points-red')[0];
+        const tonecurve_red = document.getElementById('tc-curve-red');
+        const red_points = document.getElementById('points-red');
         tonecurve_red.setAttribute("d", svgPath(points_red, bezierCommand));
+        fix_crushed_tc(points_red, 'red')
 
         plot_points(points_green, 'green');
         put_tooltips(points_green, 'green')
-        const tonecurve_green = document.getElementsByClassName('tonecurve-curve tc-green')[0];
-        const green_points = document.getElementsByClassName('points-green')[0];
+        const tonecurve_green = document.getElementById('tc-curve-green');
+        const green_points = document.getElementById('points-green');
         tonecurve_green.setAttribute("d", svgPath(points_green, bezierCommand));
+        fix_crushed_tc(points_green, 'green')
 
         plot_points(points_blue, 'blue');
         put_tooltips(points_blue, 'blue')
-        const tonecurve_blue = document.getElementsByClassName('tonecurve-curve tc-blue')[0];
-        const blue_points = document.getElementsByClassName('points-blue')[0];
+        const tonecurve_blue = document.getElementById('tc-curve-blue');
+        const blue_points = document.getElementById('points-blue');
         tonecurve_blue.setAttribute("d", svgPath(points_blue, bezierCommand));
+        fix_crushed_tc(points_blue, 'blue')
     {% endif %}
 
     {% if exif['DateTimeOriginal'] %}

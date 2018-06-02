@@ -23,7 +23,7 @@ COMMON_ASPECT_RATIOS = {
 }
 
 def tc_format_js(arr):
-    """Formats an array for use in templating."""
+    """Formats a tone curve array for use in templating."""
     l = arr[1:-2].split(', ')
     lst = []
     for i in range(0, len(l), 2):
@@ -43,7 +43,7 @@ def parse_exif_val(val):
 def get_image_metadata(file):
     """
     Returns a dictionary of image metadata.
-        Dimensions -- width pixels by height pixels
+        Dimensions -- width x height in pixels
         AspectRatio - aspect ratio of the image
         Resolution - resolution in megapixels
         FileSize - file size in KB or MB

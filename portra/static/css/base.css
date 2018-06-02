@@ -199,13 +199,13 @@ a.header-links {
     stroke-width: 1;
     stroke-linejoin: round;
 }
-.tonecurve-curve.tc-red {
+.tonecurve-curve.curve-red {
     stroke: #BA5F60;
 }
-.tonecurve-curve.tc-green {
+.tonecurve-curve.curve-green {
     stroke: #78AA5C;
 }
-.tonecurve-curve.tc-blue {
+.tonecurve-curve.curve-blue {
     stroke: #5C8EB1;
 }
 
