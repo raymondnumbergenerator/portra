@@ -107,12 +107,11 @@ def img_histogram(file):
     blue_histogram = histogram[512:768]
     blue_max = max(blue_histogram)
 
-    rgb_max = red_max + green_max + blue_max
+    rgb_histogram = []
+    for i in range(256):
+        rgb_histogram.append(red_histogram[i] + green_histogram[i] + blue_histogram[i])
 
-    histogram_rgb = []
-    histogram_red = []
-    histogram_green = []
-    histogram_blue = []
+    rgb_max = max(rgb_histogram)
 
     for i in range(256):
         r = red_histogram[i]
@@ -120,12 +119,12 @@ def img_histogram(file):
         b = blue_histogram[i]
         rgb = r + g + b
 
-        histogram_rgb.append(round(255 - (rgb * 255 / rgb_max), 2))
-        histogram_red.append(round(255 - (r * 255 / red_max), 2))
-        histogram_green.append(round(255 - (g * 255 / green_max), 2))
-        histogram_blue.append(round(255 - (b * 255 / blue_max), 2))
+        rgb_histogram[i] = round(255 - (rgb * 255 / rgb_max), 2)
+        red_histogram[i] = round(255 - (r * 255 / red_max), 2)
+        green_histogram[i] = round(255 - (g * 255 / green_max), 2)
+        blue_histogram[i] = round(255 - (b * 255 / blue_max), 2)
 
-    return histogram_rgb, histogram_red, histogram_green, histogram_blue
+    return rgb_histogram, red_histogram, green_histogram, blue_histogram
 
 def get_file_size(file):
     """
