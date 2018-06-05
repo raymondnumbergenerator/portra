@@ -440,6 +440,7 @@
                             <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path id="hist-rgb" class="histogram histogram-rgb"></path>
 
                             <path id="tc-curve-rgb" class="tonecurve-curve curve-rgb"></path>
                             <g id="tc-crushed-rgb"></g>
@@ -459,6 +460,7 @@
                             <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path id="hist-red" class="histogram histogram-red"></path>
 
                             <path id="tc-curve-red" class="tonecurve-curve curve-red"></path>
                             <g id="tc-crushed-red"></g>
@@ -478,6 +480,7 @@
                             <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path id="hist-green" class="histogram histogram-green"></path>
 
                             <path id="tc-curve-green" class="tonecurve-curve curve-green"></path>
                             <g id="tc-crushed-green"></g>
@@ -497,6 +500,7 @@
                             <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
                             <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+                            <path id="hist-blue" class="histogram histogram-blue"></path>
 
                             <path id="tc-curve-blue" class="tonecurve-curve curve-blue"></path>
                             <g id="tc-crushed-blue"></g>
@@ -1158,61 +1162,79 @@
 
 <script src="{{ url_for('static', filename='js/beziercurve.js') }}"></script>
 <script>
-    function plot_points(points, type) {
-        var elem = document.getElementById('points-' + type);
+    function plot_points(points, channel) {
+        var elem = document.getElementById('points-' + channel);
         for (var i = 0; i < points.length; i++) {
-            elem.innerHTML += `<g id="${type}-${i}"><circle class="tonecurve-point p-${type}" cx="${points[i][0]}" cy="${points[i][1]}" r="3"></circle></g>`;
+            elem.innerHTML += `<g id="${channel}-${i}"><circle class="tonecurve-point p-${channel}" cx="${points[i][0]}" cy="${points[i][1]}" r="3"></circle></g>`;
         }
     }
-    function put_tooltips(points, type) {
-        var elem = document.getElementById('tc-' + type + '-tooltip');
+    function put_tooltips(points, channel) {
+        var elem = document.getElementById('tc-' + channel + '-tooltip');
         for (var i = 0; i < points.length; i++) {
-            elem.innerHTML += `<div class="mdl-tooltip tonecurve-tooltip" data-mdl-for="${type}-${i}">${(points[i][0] / 255 * 100).toFixed(1)} / ${((255 - points[i][1]) / 255 * 100).toFixed(1)}%</div>`
+            elem.innerHTML += `<div class="mdl-tooltip tonecurve-tooltip" data-mdl-for="${channel}-${i}">${(points[i][0] / 255 * 100).toFixed(1)} / ${((255 - points[i][1]) / 255 * 100).toFixed(1)}%</div>`
         }
     }
-    function fix_crushed_tc (points, type) {
-        var elem = document.getElementById('tc-crushed-' + type);
+    function fix_crushed_tc(points, channel) {
+        var elem = document.getElementById('tc-crushed-' + channel);
         if (points[0][0] != 0) {
-            elem.innerHTML += `<path class="tonecurve-curve curve-${type}" d="M0 ${points[0][1]} ${points[0][0]} ${points[0][1]}"></path>`
+            elem.innerHTML += `<path class="tonecurve-curve curve-${channel}" d="M0 ${points[0][1]} ${points[0][0]} ${points[0][1]}"></path>`
         }
         if (points[points.length - 1][0] != 255) {
-            elem.innerHTML += `<path class="tonecurve-curve curve-${type}" d="M255 ${points[points.length - 1][1]} ${points[points.length - 1][0]} ${points[points.length - 1][1]}"></path>`
+            elem.innerHTML += `<path class="tonecurve-curve curve-${channel}" d="M255 ${points[points.length - 1][1]} ${points[points.length - 1][0]} ${points[points.length - 1][1]}"></path>`
         }
+    }
+    function draw_histogram(points, channel) {
+        var elem = document.getElementById('hist-' + channel);
+        var d = 'M0 255 ';
+        for (var i = 0; i < points.length; i++) {
+            d += `${i} ${points[i]} `;
+        }
+        d += '255 255';
+        elem.setAttribute("d", d);
     }
 
     {% if tonecurve %}
-        const points_rgb = {{ tonecurve['rgb'] }}
-        const points_red = {{ tonecurve['red'] }}
-        const points_green = {{ tonecurve['green'] }}
-        const points_blue = {{ tonecurve['blue'] }}
+        const points_rgb = {{ tonecurve['rgb'] }};
+        const points_red = {{ tonecurve['red'] }};
+        const points_green = {{ tonecurve['green'] }};
+        const points_blue = {{ tonecurve['blue'] }};
 
         plot_points(points_rgb, 'rgb');
-        put_tooltips(points_rgb, 'rgb')
+        put_tooltips(points_rgb, 'rgb');
         const tonecurve_rgb = document.getElementById('tc-curve-rgb');
         const rgb_points = document.getElementById('points-rgb');
-        tonecurve_rgb.setAttribute("d", svgPath(points_rgb, bezierCommand));
+        tonecurve_rgb.setAttribute('d', svgPath(points_rgb, bezierCommand));
         fix_crushed_tc(points_rgb, 'rgb')
 
         plot_points(points_red, 'red');
-        put_tooltips(points_red, 'red')
+        put_tooltips(points_red, 'red');
         const tonecurve_red = document.getElementById('tc-curve-red');
         const red_points = document.getElementById('points-red');
-        tonecurve_red.setAttribute("d", svgPath(points_red, bezierCommand));
-        fix_crushed_tc(points_red, 'red')
+        tonecurve_red.setAttribute('d', svgPath(points_red, bezierCommand));
+        fix_crushed_tc(points_red, 'red');
 
         plot_points(points_green, 'green');
-        put_tooltips(points_green, 'green')
+        put_tooltips(points_green, 'green');
         const tonecurve_green = document.getElementById('tc-curve-green');
         const green_points = document.getElementById('points-green');
-        tonecurve_green.setAttribute("d", svgPath(points_green, bezierCommand));
-        fix_crushed_tc(points_green, 'green')
+        tonecurve_green.setAttribute('d', svgPath(points_green, bezierCommand));
+        fix_crushed_tc(points_green, 'green');
 
         plot_points(points_blue, 'blue');
-        put_tooltips(points_blue, 'blue')
+        put_tooltips(points_blue, 'blue');
         const tonecurve_blue = document.getElementById('tc-curve-blue');
         const blue_points = document.getElementById('points-blue');
-        tonecurve_blue.setAttribute("d", svgPath(points_blue, bezierCommand));
-        fix_crushed_tc(points_blue, 'blue')
+        tonecurve_blue.setAttribute('d', svgPath(points_blue, bezierCommand));
+        fix_crushed_tc(points_blue, 'blue');
+
+        const histogram_rgb = {{ metadata['HistogramRGB'] }};
+        const histogram_red = {{ metadata['HistogramRed'] }};
+        const histogram_green = {{ metadata['HistogramGreen'] }};
+        const histogram_blue = {{ metadata['HistogramBlue'] }};
+        draw_histogram(histogram_rgb, 'rgb')
+        draw_histogram(histogram_red, 'red')
+        draw_histogram(histogram_green, 'green')
+        draw_histogram(histogram_blue, 'blue')
     {% endif %}
 
     {% if exif['DateTimeOriginal'] %}

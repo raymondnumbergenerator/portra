@@ -1,3 +1,4 @@
+import math
 import os
 
 from PIL import Image
@@ -47,6 +48,9 @@ def get_image_metadata(file):
         AspectRatio - aspect ratio of the image
         Resolution - resolution in megapixels
         FileSize - file size in KB or MB
+        HistogramRed - red histogram in percentage values
+        HistogramGreen - green histogram in percentage values
+        HistogramBlue - blue histogram in percentage values
     """
     metadata = {}
     width, height = get_img_dimensions(file)
@@ -54,6 +58,8 @@ def get_image_metadata(file):
     metadata['AspectRatio'] = str(img_aspect_ratio(width, height))
     metadata['Resolution'] = str(img_resolution(width, height)) + ' MP'
     metadata['FileSize'] = get_file_size(file)
+    metadata['HistogramRGB'], metadata['HistogramRed'], metadata['HistogramGreen'], \
+        metadata['HistogramBlue'] = img_histogram(file)
     return metadata
 
 def get_img_dimensions(file):
@@ -83,6 +89,43 @@ def img_aspect_ratio(width, height):
             ratio = ar
             break
     return ratio
+
+def img_histogram(file):
+    """
+    Returns an image's histogram in a combined RGB channel and each individual
+    channel as an array of 256 values.
+    """
+    with Image.open(file) as img:
+        histogram = img.histogram()
+
+    red_histogram = histogram[0:256]
+    red_max = max(red_histogram)
+
+    green_histogram = histogram[256:512]
+    green_max = max(green_histogram)
+
+    blue_histogram = histogram[512:768]
+    blue_max = max(blue_histogram)
+
+    rgb_max = red_max + green_max + blue_max
+
+    histogram_rgb = []
+    histogram_red = []
+    histogram_green = []
+    histogram_blue = []
+
+    for i in range(256):
+        r = red_histogram[i]
+        g = green_histogram[i]
+        b = blue_histogram[i]
+        rgb = r + g + b
+
+        histogram_rgb.append(round(255 - (rgb * 255 / rgb_max), 2))
+        histogram_red.append(round(255 - (r * 255 / red_max), 2))
+        histogram_green.append(round(255 - (g * 255 / green_max), 2))
+        histogram_blue.append(round(255 - (b * 255 / blue_max), 2))
+
+    return histogram_rgb, histogram_red, histogram_green, histogram_blue
 
 def get_file_size(file):
     """

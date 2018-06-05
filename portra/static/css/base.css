@@ -28,6 +28,7 @@ a.header-links {
     width: 360px;
     overflow-y: auto;
     overflow-x: hidden;
+    background: white;
 }
 
 .metadata-container section {
@@ -35,7 +36,7 @@ a.header-links {
     width: 100%;
     height: 100%;
 	z-index: 0;
-    background: white;
+    background: inherit;
     transform: translateX(-360px);
     cubic-bezier(0.4, 0.0, 0.2, 1);
     transition-duration: 500ms;
@@ -54,7 +55,7 @@ a.header-links {
 }
 
 .title {
-    padding: 8px 20px 8px 32px;
+    padding: 22px 20px 8px 32px;
     font: 500 20px Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
 }
 
@@ -73,15 +74,7 @@ a.header-links {
     padding: 4px 32px;
 }
 
-.info-table {
-    width: 100%
-}
-
-.mdl-data-table {
-    font-size: 11px !important;
-}
-
-.info-text {
+.info-container > .info-text {
     color: rgba(0,0,0,0.54);
     font-size: 11px;
 }
@@ -95,7 +88,7 @@ a.header-links {
     text-align: right;
 }
 
-.info-container > .slider {
+.slider {
     width: 130px;
     display: inline-block;
     vertical-align: middle;
@@ -192,7 +185,6 @@ a.header-links {
     margin: 8px 32px 8px 32px;
     border: 1px #DDDDDD solid;
 }
-
 .tonecurve-curve {
     stroke: #888888;
     fill: none;
@@ -208,7 +200,6 @@ a.header-links {
 .tonecurve-curve.curve-blue {
     stroke: #5C8EB1;
 }
-
 .tonecurve-point {
     fill: #BBBBBB;
     stroke: #888888;
@@ -223,5 +214,20 @@ a.header-links {
 }
 .tonecurve-point.p-blue {
     stroke: #5C8EB1;
+    fill: #8FC1E4;
+}
+
+.histogram {
+    stroke: none;
+    fill: #BBBBBB;
+    opacity: 0.25;
+}
+.histogram.histogram-red {
+    fill: #ED9293;
+}
+.histogram.histogram-green {
+    fill: #ABDD8F;
+}
+.histogram.histogram-blue {
     fill: #8FC1E4;
 }
