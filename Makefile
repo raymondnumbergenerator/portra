@@ -2,6 +2,7 @@ VENV := venv
 BIN := $(VENV)/bin
 
 export DEFAULT_IMAGES_PATH := $(CURDIR)/i
+export DEFAULT_METADATA_PATH := $(CURDIR)/m
 export PORTRA_SETTINGS := $(CURDIR)/settings.py
 export SECRET_KEY := cat $(CURDIR)/SECRET_KEY
 

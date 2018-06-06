@@ -1,6 +1,10 @@
 import os
 
-IMAGES_PATH = os.environ['DEFAULT_IMAGES_PATH']
+STORAGE_BACKEND = {
+    'type': 'file',
+    'img_path': os.environ['DEFAULT_IMAGES_PATH'],
+    'met_path': os.environ['DEFAULT_METADATA_PATH'],
+}
 SECRET_KEY = os.environ['SECRET_KEY']
 
 ################################################
@@ -8,4 +12,3 @@ SECRET_KEY = os.environ['SECRET_KEY']
 ################################################
 
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg'}
-UPLOAD_FOLDER = IMAGES_PATH

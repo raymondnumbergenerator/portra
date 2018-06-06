@@ -14,6 +14,10 @@ def has_metadata(xmp):
     return xmp.does_property_exist(NS_DC, 'format')
 
 def parse_exif_val(val):
+    """
+    Sometimes EXIF values are stored in a fraction as a string.
+    This will return the value as a decimal.
+    """
     nums = val.split('/')
     if len(nums) == 1:
         return float(nums[0])

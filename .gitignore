@@ -2,6 +2,7 @@
 *.egg
 *.egg-info
 *.jpg
+*.met
 *.pyc
 *.xmp
 /SECRET_KEY

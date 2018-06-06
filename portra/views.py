@@ -12,40 +12,11 @@ from werkzeug.utils import secure_filename
 
 from portra.app import app
 from portra.component.export import lr_export_lrtemplate
-from portra.component.export import xmp_export_full
 from portra.component.export import xmp_export_tonecurve
 
-from portra.component.files import allowed_file
-from portra.component.files import get_img_file
-from portra.component.files import get_img_url
-from portra.component.files import save_file
+from portra.component.backend import backend
 
-from portra.component.lr import crs_full_all
-from portra.component.tags import VIGNETTE_STYLE
-from portra.component.tags import PROCESS_VERSION
-from portra.component.xmp import has_metadata
-from portra.component.xmp import exif_metadata
-
-from portra.utils import get_image_metadata
-from portra.utils import tc_format_js
-
-@app.route('/img/<path:filename>')
-def img(filename):
-    return send_from_directory(app.config['IMAGES_PATH'], filename)
-
-def upload():
-    if 'file' not in request.files:
-        flash('No file provided.')
-        return redirect(request.url)
-    file = request.files['file']
-    if file.filename == '':
-        flash('No file selected.')
-        return redirect(request.url)
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        saved_filename = save_file(file)
-        return redirect(url_for('image', filename=saved_filename))
-    return redirect(request.url)
+from portra.utils import allowed_file
 
 @app.route('/', methods={'GET', 'POST'})
 def home():
@@ -65,58 +36,58 @@ def image(filename):
     if request.method == 'POST':
         return upload()
 
-    file = get_img_file(filename)
-    if not os.path.isfile(file):
+    url = backend().get_img_url(filename)
+    if not url:
         return render_template(
             'image.html',
-            image_url="",
+            image_url='',
+            filename='',
             metadata={},
             exif={},
             lightroom={},
         )
 
-    xmp = xmp_export_full(file)
-    met = get_image_metadata(file)
-    if not has_metadata(xmp):
-        return render_template(
-            'image.html',
-            image_url=get_img_url(filename),
-            metadata=met,
-            exif={},
-            lightroom={},
-        )
-
-    crs = crs_full_all(xmp)
-    crs['ProcessVersion'] = PROCESS_VERSION[crs['ProcessVersion']]
-    crs['PostCropVignetteStyle'] = VIGNETTE_STYLE[crs['PostCropVignetteStyle']]
-    crs['ToneCurvePV2012'] = tc_format_js(crs['ToneCurvePV2012'])
-    crs['ToneCurvePV2012Red'] = tc_format_js(crs['ToneCurvePV2012Red'])
-    crs['ToneCurvePV2012Green'] = tc_format_js(crs['ToneCurvePV2012Green'])
-    crs['ToneCurvePV2012Blue'] = tc_format_js(crs['ToneCurvePV2012Blue'])
+    info = backend().get_img_info(filename)
     return render_template(
         'image.html',
-        image_url=get_img_url(filename),
-        metadata=met,
-        exif=exif_metadata(xmp),
-        lightroom=crs,
+        image_url=url,
+        filename=info['filename'],
+        metadata=info['metadata'],
+        exif=info['exif'],
+        lightroom=info['lightroom'],
     )
 
 @app.route('/<filename>/xmp')
 def xmp(filename):
-    file = get_img_file(filename)
-    xmp = xmp_export_full(file)
+    xmp = backend().get_img_info(filename)['xmp']
     return Response(str(xmp), mimetype='text/plain')
 
 @app.route('/<filename>/tc')
 def tc(filename):
-    file = get_img_file(filename)
-    xmp = xmp_export_full(file)
+    xmp = backend().get_img_info(filename)['xmp']
     tc = xmp_export_tonecurve(xmp)
     return Response(str(tc), mimetype='text/plain')
 
 @app.route('/<filename>/lrt')
 def lrt(filename):
-    file = get_img_file(filename)
-    xmp = xmp_export_full(file)
+    xmp = backend().get_img_info(filename)['xmp']
     lrt = lr_export_lrtemplate(xmp, os.path.splitext(filename)[0])
     return Response(str(lrt), mimetype='text/plain')
+
+@app.route('/img/<path:filename>')
+def img(filename):
+    return send_from_directory(app.config['STORAGE_BACKEND']['img_path'], filename)
+
+def upload():
+    if 'file' not in request.files:
+        flash('No file provided.')
+        return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+        flash('No file selected.')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        saved_filename = backend().save_image(file)
+        return redirect(url_for('image', filename=saved_filename))
+    return redirect(request.url)
