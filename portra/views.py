@@ -13,7 +13,6 @@ from werkzeug.utils import secure_filename
 from portra.app import app
 from portra.component.export import lr_export_lrtemplate
 from portra.component.export import xmp_export_tonecurve
-
 from portra.component.backend import backend
 
 from portra.utils import allowed_file

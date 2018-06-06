@@ -20,8 +20,7 @@ COMMON_ASPECT_RATIOS = {
     '7:5': 1.40,
     '3:2': 1.50,
     '16:10': 1.60,
-    '16:9': 1.78,
-}
+    '16:9': 1.78}
 
 def get_image_metadata(file):
     """
@@ -30,9 +29,9 @@ def get_image_metadata(file):
         AspectRatio - aspect ratio of the image
         Resolution - resolution in megapixels
         FileSize - file size in KB or MB
-        HistogramRed - red histogram in percentage values
-        HistogramGreen - green histogram in percentage values
-        HistogramBlue - blue histogram in percentage values
+        HistogramRed - red histogram
+        HistogramGreen - green histogram
+        HistogramBlue - blue histogram
     """
     metadata = {}
     width, height = get_img_dimensions(file)
@@ -76,6 +75,7 @@ def img_histogram(file):
     """
     Returns an image's histogram in a combined RGB channel and each individual
     channel as an array of 256 values.
+    A 0 means that a tonal value is the max and 255 means there are 0 pixels at that value.
     """
     with Image.open(file) as img:
         histogram = img.histogram()
