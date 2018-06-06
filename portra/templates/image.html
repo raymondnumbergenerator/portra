@@ -1,0 +1,1120 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="photo-container">
+    <img class="photo" src=" {{ image_url }}">
+</div>
+<div class="metadata-container">
+    <section id="basic">
+        <div class="title">Basic Metadata</div>
+
+        <hr width=100%>
+
+        <div class="info-section">
+            <div class="sub-title">File Information</div>
+            <div class="info-container">
+                <span class="info-title info-text">Dimensions</span>
+                <span class="info-value info-text">{{ metadata['Dimensions'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Resolution</span>
+                <span class="info-value info-text">{{ metadata['Resolution'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Aspect Ratio</span>
+                <span class="info-value info-text">{{ metadata['AspectRatio'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">File Size</span>
+                <span class="info-value info-text">{{ metadata['FileSize'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Date Taken</span>
+                <span id="basic-date" class="info-value info-text"></span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Time Taken</span>
+                <span id="basic-time" class="info-value info-text"></span>
+            </div>
+        </div>
+
+        <hr width=100%>
+
+        <div class="info-section">
+            <div class="sub-title">Camera and Lens</div>
+            <div class="info-container">
+                <span class="info-title info-text">Camera</span>
+                <span class="info-value info-text">{{ exif['Model'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Lens</span>
+                <span class="info-value info-text">{{ exif['Lens'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Focal Length</span>
+                <span class="info-value info-text">{{ exif['FocalLength'] }}</span>
+            </div>
+        </div>
+
+        <hr width=100%>
+
+        <div class="info-section">
+            <div class="sub-title">Exposure</div>
+            <div class="info-container">
+                <span class="info-title info-text">Shutter Speed</span>
+                <span class="info-value info-text">{{ exif['ExposureTime'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Aperture</span>
+                <span class="info-value info-text">{{ exif['FNumber'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">ISO</span>
+                <span class="info-value info-text">{{ exif['ISOSpeedRatings'] }}</span>
+            </div>
+        </div>
+
+        <hr width=100%>
+
+        <!-- <div class="info-section">
+            <div class="sub-title">Location</div>
+            <div class="info-container">
+                <span class="info-title info-text">GPS</span>
+                <span class="info-value info-text"></span>
+            </div>
+        </div>
+
+        <hr width=100%> -->
+
+    </section>
+    <section id="detailed">
+        <div class="title">Detailed Metadata</div>
+
+        <hr width=100%>
+
+        <div class="info-section">
+            <div class="sub-title">File Information</div>
+            <div class="info-container">
+                <span class="info-title info-text">Dimensions</span>
+                <span class="info-value info-text">{{ metadata['Dimensions'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Resolution</span>
+                <span class="info-value info-text">{{ metadata['Resolution'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Aspect Ratio</span>
+                <span class="info-value info-text">{{ metadata['AspectRatio'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">File Size</span>
+                <span class="info-value info-text">{{ metadata['FileSize'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Date Taken</span>
+                <span id="detailed-date" class="info-value info-text"></span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Time Taken</span>
+                <span id="detailed-time" class="info-value info-text"></span>
+            </div>
+        </div>
+
+        <hr width=100%>
+
+        <div class="info-section">
+            <div class="sub-title">Camera and Lens</div>
+            <div class="title-center">Camera</div>
+            <div class="info-container">
+                <span class="info-title info-text">Camera</span>
+                <span class="info-value info-text">{{ exif['Model'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Serial Number</span>
+                <span class="info-value info-text">{{ exif['SerialNumber'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Shutter Count</span>
+                <span class="info-value info-text">{{ exif['ImageNumber'] }}</span>
+            </div>
+            <div class="title-center">Lens</div>
+            <div class="info-container">
+                <span class="info-title info-text">Lens</span>
+                <span class="info-value info-text">{{ exif['Lens'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Lens ID</span>
+                <span class="info-value info-text">{{ exif['LensID'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Focal Length</span>
+                <span class="info-value info-text">{{ exif['FocalLength'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">35mm equiv.</span>
+                <span class="info-value info-text">{{ exif['FocalLengthIn35mmFilm'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Focus Distance</span>
+                <span class="info-value info-text">{{ exif['ApproximateFocusDistance'] }}</span>
+            </div>
+        </div>
+
+        <hr width=100%>
+
+        <div class="info-section">
+            <div class="sub-title">Exposure</div>
+            <div class="title-center">Exposure</div>
+            <div class="info-container">
+                <span class="info-title info-text">Shutter Speed</span>
+                <span class="info-value info-text">{{ exif['ExposureTime'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Aperture</span>
+                <span class="info-value info-text">{{ exif['FNumber'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">ISO</span>
+                <span class="info-value info-text">{{ exif['ISOSpeedRatings'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Program</span>
+                <span class="info-value info-text">{{ exif['ExposureProgram'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Compensation</span>
+                <span class="info-value info-text">{{ exif['ExposureBiasValue'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Metering Mode</span>
+                <span class="info-value info-text">{{ exif['MeteringMode'] }}</span>
+            </div>
+            <div class="title-center">Flash</div>
+            <div class="info-container">
+                <span class="info-title info-text">Flash</span>
+                <span class="info-value info-text">{{ exif['Flash'] }}</span>
+            </div>
+        </div>
+
+        <hr width=100%>
+
+        <!-- <div class="info-section">
+            <div class="sub-title">Location</div>
+            <div class="info-container">
+                <span class="info-title info-text">GPS</span>
+                <span class="info-value info-text"></span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Altitude</span>
+                <span class="info-value info-text">{{ exif['GPSAltitude'] }}</span>
+            </div>
+        </div>
+
+        <hr width=100%> -->
+    </section>
+    <section id="lr">
+        <div class="title">Lightroom Settings</div>
+
+        <hr width="100%">
+
+        <div class="info-section">
+            <div class="sub-title">Basic Tone</div>
+            <div class="info-subsection">
+                <div class="info-container">
+                    <span class="info-title info-text">Temperature</span>
+                    <span class="slider temperature"></span>
+                    <span class="info-value info-text">{{ lightroom['Temperature'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Tint</span>
+                    <span class="slider tint">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Tint']|float + 152.0) / 300.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Tint'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Tone</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Exposure</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Exposure2012']|float + 5.0) / 10.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Exposure2012'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Contrast</span>
+                    <span class="slider reverse">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Contrast2012']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Contrast2012'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="info-container">
+                    <span class="info-title info-text">Highlights</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Highlights2012']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Highlights2012'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Shadows</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Shadows2012']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Shadows2012'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Whites</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Whites2012']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Whites2012'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Blacks</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Blacks2012']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Blacks2012'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Presence</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Clarity</span>
+                    <span class="slider reverse">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Clarity2012']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Clarity2012'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Vibrance</span>
+                    <span class="slider saturation">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Vibrance']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Vibrance'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Saturation</span>
+                    <span class="slider saturation">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Saturation']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Saturation'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr width="100%">
+
+        <div class="info-section">
+            <div class="sub-title">Tone Curve</div>
+            <div class="info-subsection">
+                <div class="title-center">RGB</div>
+                <div class="info-subsection">
+                    <svg id="tc-rgb" class="tonecurve" viewBox="0 0 255 255">
+                        <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
+
+                        <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path id="tc-hist-rgb" class="histogram histogram-rgb"></path>
+
+                        <path id="tc-curve-rgb" class="tonecurve-curve curve-rgb"></path>
+                        <g id="tc-crushed-rgb"></g>
+                        <g id="points-rgb"></g>
+                    </svg>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Red</div>
+                <div class="info-subsection">
+                    <svg id="tc-red" class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                        <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
+
+                        <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path id="tc-hist-red" class="histogram histogram-red"></path>
+
+                        <path id="tc-curve-red" class="tonecurve-curve curve-red"></path>
+                        <g id="tc-crushed-red"></g>
+                        <g id="points-red"></g>
+                    </svg>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Green</div>
+                <div class="info-subsection">
+                    <svg id="tc-green" class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                        <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
+
+                        <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path id="tc-hist-green" class="histogram histogram-green"></path>
+
+                        <path id="tc-curve-green" class="tonecurve-curve curve-green"></path>
+                        <g id="tc-crushed-green"></g>
+                        <g id="points-green"></g>
+                    </svg>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Blue</div>
+                <div class="info-subsection">
+                    <svg id="tc-blue" class="tonecurve" viewBox="0 0 255 255" style="border: 1px #DDDDDD solid">
+                        <path d="M64 0 64 255" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M127 0 127 255" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M192 0 192 255" stroke-width="1" stroke="#DDDDDD"></path>
+
+                        <path d="M0 64 255 64" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M0 127 255 127" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path d="M0 192 255 192" stroke-width="1" stroke="#DDDDDD"></path>
+                        <path id="tc-hist-blue" class="histogram histogram-blue"></path>
+
+                        <path id="tc-curve-blue" class="tonecurve-curve curve-blue"></path>
+                        <g id="tc-crushed-blue"></g>
+                        <g id="points-blue"></g>
+                    </svg>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Region</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Highlights</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['ParametricHighlights']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['ParametricHighlights'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Lights</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['ParametricLights']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['ParametricLights'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Darks</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['ParametricDarks']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['ParametricDarks'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Shadows</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['ParametricShadows']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['ParametricShadows'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr width="100%">
+
+        <div class="info-section">
+            <div class="sub-title">HSL</div>
+            <div class="info-subsection">
+                <div class="title-center">Hue</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Red</span>
+                    <span class="slider hue-red">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['HueAdjustmentRed']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['HueAdjustmentRed'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Orange</span>
+                    <span class="slider hue-orange">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['HueAdjustmentOrange']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['HueAdjustmentOrange'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Yellow</span>
+                    <span class="slider hue-yellow">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['HueAdjustmentYellow']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['HueAdjustmentYellow'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Green</span>
+                    <span class="slider hue-green">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['HueAdjustmentGreen']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['HueAdjustmentGreen'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Aqua</span>
+                    <span class="slider hue-aqua">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['HueAdjustmentAqua']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['HueAdjustmentAqua'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Blue</span>
+                    <span class="slider hue-blue">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['HueAdjustmentBlue']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['HueAdjustmentBlue'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Purple</span>
+                    <span class="slider hue-purple">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['HueAdjustmentPurple']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['HueAdjustmentPurple'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Magenta</span>
+                    <span class="slider hue-magenta">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['HueAdjustmentMagenta']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['HueAdjustmentMagenta'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Saturation</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Red</span>
+                    <span class="slider saturation-red">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SaturationAdjustmentRed']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SaturationAdjustmentRed'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Orange</span>
+                    <span class="slider saturation-orange">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SaturationAdjustmentOrange']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SaturationAdjustmentOrange'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Yellow</span>
+                    <span class="slider saturation-yellow">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SaturationAdjustmentYellow']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SaturationAdjustmentYellow'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Green</span>
+                    <span class="slider saturation-green">
+                    {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SaturationAdjustmentGreen']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SaturationAdjustmentGreen'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Aqua</span>
+                    <span class="slider saturation-aqua">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SaturationAdjustmentAqua']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SaturationAdjustmentAqua'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Blue</span>
+                    <span class="slider saturation-blue">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SaturationAdjustmentBlue']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SaturationAdjustmentBlue'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Purple</span>
+                    <span class="slider saturation-purple">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SaturationAdjustmentPurple']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SaturationAdjustmentPurple'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Magenta</span>
+                    <span class="slider saturation-magenta">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SaturationAdjustmentMagenta']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SaturationAdjustmentMagenta'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Luminance</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Red</span>
+                    <span class="slider saturation-red">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceAdjustmentRed']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceAdjustmentRed'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Orange</span>
+                    <span class="slider saturation-orange">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceAdjustmentOrange']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceAdjustmentOrange'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Yellow</span>
+                    <span class="slider saturation-yellow">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceAdjustmentYellow']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceAdjustmentYellow'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Green</span>
+                    <span class="slider saturation-green">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceAdjustmentGreen']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceAdjustmentGreen'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Aqua</span>
+                    <span class="slider saturation-aqua">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceAdjustmentAqua']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceAdjustmentAqua'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Blue</span>
+                    <span class="slider saturation-blue">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceAdjustmentBlue']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceAdjustmentBlue'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Purple</span>
+                    <span class="slider saturation-purple">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceAdjustmentPurple']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceAdjustmentPurple'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Magenta</span>
+                    <span class="slider saturation-magenta">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceAdjustmentMagenta']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceAdjustmentMagenta'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr width="100%">
+
+        <div class="info-section">
+            <div class="sub-title">Split Toning</div>
+            <div class="info-subsection">
+                <div class="title-center">Highlights</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Hue</span>
+                    <span class="slider saturation">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SplitToningHighlightHue']|float) / 360.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SplitToningHighlightHue'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Saturation</span>
+                    <span class="slider saturation-red">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SplitToningHighlightSaturation']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SplitToningHighlightSaturation'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="info-container">
+                    <span class="info-title info-text">Balance</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SplitToningBalance']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SplitToningBalance'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="title-center">Shadows</div>
+            <div class="info-container">
+                <span class="info-title info-text">Hue</span>
+                <span class="slider saturation">
+                    {% if lightroom %}
+                    <span class="slider-handle" style="margin-left: {{ (lightroom['SplitToningShadowHue']|float) / 360.0 * 124.0 }}px"></span>
+                    {% endif %}
+                </span>
+                <span class="info-value info-text">{{ lightroom['SplitToningShadowHue'] }}</span>
+            </div>
+            <div class="info-container">
+                <span class="info-title info-text">Saturation</span>
+                <span class="slider saturation-red">
+                    {% if lightroom %}
+                    <span class="slider-handle" style="margin-left: {{ (lightroom['SplitToningShadowSaturation']|float) / 100.0 * 124.0 }}px"></span>
+                    {% endif %}
+                </span>
+                <span class="info-value info-text">{{ lightroom['SplitToningShadowSaturation'] }}</span>
+            </div>
+        </div>
+
+        <hr width="100%">
+
+        <div class="info-section">
+            <div class="sub-title">Detail</div>
+            <div class="info-subsection">
+                <div class="title-center">Sharpening</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Amount</span>
+                    <span class="slider sharpening">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Sharpness']|float) / 150.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Sharpness'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Radius</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SharpenRadius']|float - 0.5) / 2.5 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SharpenRadius'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Detail</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SharpenDetail']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SharpenDetail'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Masking</span>
+                    <span class="slider reverse">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['SharpenEdgeMasking']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['SharpenEdgeMasking'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Noise Reduction</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Luminance</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceSmoothing']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceSmoothing'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Detail</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceNoiseReductionDetail']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceNoiseReductionDetail'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Contrast</span>
+                    <span class="slider reverse">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['LuminanceNoiseReductionContrast']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['LuminanceNoiseReductionContrast'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="info-container">
+                    <span class="info-title info-text">Color</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['ColorNoiseReduction']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['ColorNoiseReduction'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Detail</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['ColorNoiseReductionDetail']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['ColorNoiseReductionDetail'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Smoothness</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['ColorNoiseReductionSmoothness']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['ColorNoiseReductionSmoothness'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr width="100%">
+
+        <div class="info-section">
+            <div class="sub-title">Effects</div>
+            <div class="info-subsection">
+                <div class="title-center">Post-Crop Vignetting</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Style</span>
+                    <span class="info-value info-text">{{ lightroom['PostCropVignetteStyle'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Amount</span>
+                    <span class="slider outwards">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['PostCropVignetteAmount']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['PostCropVignetteAmount'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Midpoint</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['PostCropVignetteMidpoint']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['PostCropVignetteMidpoint'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Roundess</span>
+                    <span class="slider outwards">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['PostCropVignetteRoundness']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['PostCropVignetteRoundness'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Feather</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['PostCropVignetteFeather']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['PostCropVignetteFeather'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Highlights</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['PostCropVignetteHighlightContrast']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['PostCropVignetteHighlightContrast'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Grain</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Amount</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['GrainAmount']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['GrainAmount'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Size</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['GrainSize']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['GrainSize'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Roughness</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['GrainFrequency']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['GrainFrequency'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="info-container">
+                    <span class="info-title info-text">Dehaze</span>
+                    <span class="slider">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['Dehaze']|float) / 100.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['Dehaze'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr width="100%">
+
+        <div class="info-section">
+            <div class="sub-title">Camera Calibration</div>
+            <div class="info-subsection">
+                <div class="info-container">
+                    <span class="info-title info-text">Process</span>
+                    <span class="info-value info-text">{{ lightroom['ProcessVersion'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="info-container">
+                    <span class="info-title info-text">Profile</span>
+                    <span class="info-value info-text">{{ lightroom['CameraProfile'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Shadows</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Tint</span>
+                    <span class="slider tint">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['ShadowTint']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['ShadowTint'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Red Primary</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Hue</span>
+                    <span class="slider hue-red">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['RedHue']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['RedHue'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Saturation</span>
+                    <span class="slider saturation-red">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['RedSaturation']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['RedSaturation'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Green Primary</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Hue</span>
+                    <span class="slider hue-green">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['GreenHue']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['GreenHue'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Saturation</span>
+                    <span class="slider saturation-green">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['GreenSaturation']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['GreenSaturation'] }}</span>
+                </div>
+            </div>
+            <hr width="100%">
+            <div class="info-subsection">
+                <div class="title-center">Blue Primary</div>
+                <div class="info-container">
+                    <span class="info-title info-text">Hue</span>
+                    <span class="slider hue-blue">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['BlueHue']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['BlueHue'] }}</span>
+                </div>
+                <div class="info-container">
+                    <span class="info-title info-text">Saturation</span>
+                    <span class="slider saturation-blue">
+                        {% if lightroom %}
+                        <span class="slider-handle" style="margin-left: {{ (lightroom['BlueSaturation']|float + 100.0) / 200.0 * 124.0 }}px"></span>
+                        {% endif %}
+                    </span>
+                    <span class="info-value info-text">{{ lightroom['BlueSaturation'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr width="100%">
+
+    </section>
+
+    <div id="tc-rgb-tooltip"></div>
+    <div id="tc-red-tooltip"></div>
+    <div id="tc-blue-tooltip"></div>
+    <div id="tc-green-tooltip"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/beziercurve.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tonecurve.js')}}"></script>
+<script>
+    {% if lightroom['ToneCurvePV2012'] %}
+    const points_rgb = {{ lightroom['ToneCurvePV2012'] }};
+    const points_red = {{ lightroom['ToneCurvePV2012Red'] }};
+    const points_green = {{ lightroom['ToneCurvePV2012Green'] }};
+    const points_blue = {{ lightroom['ToneCurvePV2012Blue'] }};
+
+    plot_points(points_rgb, 'rgb');
+    put_tooltips(points_rgb, 'rgb');
+    const tonecurve_rgb = document.getElementById('tc-curve-rgb');
+    const rgb_points = document.getElementById('points-rgb');
+    tonecurve_rgb.setAttribute('d', svgPath(points_rgb, bezierCommand));
+    fix_crushed_tc(points_rgb, 'rgb')
+
+    plot_points(points_red, 'red');
+    put_tooltips(points_red, 'red');
+    const tonecurve_red = document.getElementById('tc-curve-red');
+    const red_points = document.getElementById('points-red');
+    tonecurve_red.setAttribute('d', svgPath(points_red, bezierCommand));
+    fix_crushed_tc(points_red, 'red');
+
+    plot_points(points_green, 'green');
+    put_tooltips(points_green, 'green');
+    const tonecurve_green = document.getElementById('tc-curve-green');
+    const green_points = document.getElementById('points-green');
+    tonecurve_green.setAttribute('d', svgPath(points_green, bezierCommand));
+    fix_crushed_tc(points_green, 'green');
+
+    plot_points(points_blue, 'blue');
+    put_tooltips(points_blue, 'blue');
+    const tonecurve_blue = document.getElementById('tc-curve-blue');
+    const blue_points = document.getElementById('points-blue');
+    tonecurve_blue.setAttribute('d', svgPath(points_blue, bezierCommand));
+    fix_crushed_tc(points_blue, 'blue');
+
+    const histogram_rgb = {{ metadata['HistogramRGB'] }};
+    const histogram_red = {{ metadata['HistogramRed'] }};
+    const histogram_green = {{ metadata['HistogramGreen'] }};
+    const histogram_blue = {{ metadata['HistogramBlue'] }};
+    draw_histogram(histogram_rgb, 'rgb')
+    draw_histogram(histogram_red, 'red')
+    draw_histogram(histogram_green, 'green')
+    draw_histogram(histogram_blue, 'blue')
+    {% endif %}
+
+    {% if exif['DateTimeOriginal'] %}
+    var datetime = new Date({{ exif['DateTimeOriginal']|tojson }});
+    document.getElementById('basic-date').innerHTML = datetime.toLocaleDateString();
+    document.getElementById('basic-time').innerHTML = datetime.toLocaleTimeString();
+    document.getElementById('detailed-date').innerHTML = datetime.toLocaleDateString();
+    document.getElementById('detailed-time').innerHTML = datetime.toLocaleTimeString();
+    {% endif %}
+</script>
+
+{% endblock %}

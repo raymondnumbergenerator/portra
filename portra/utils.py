@@ -117,7 +117,7 @@ def img_histogram(file):
         r = red_histogram[i]
         g = green_histogram[i]
         b = blue_histogram[i]
-        rgb = r + g + b
+        rgb = rgb_histogram[i]
 
         rgb_histogram[i] = round(255 - (rgb * 255 / rgb_max), 2)
         red_histogram[i] = round(255 - (r * 255 / red_max), 2)

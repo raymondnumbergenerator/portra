@@ -53,12 +53,11 @@ def home():
         return upload()
 
     return render_template(
-        'base.html',
+        'image.html',
         image_url="",
         metadata={},
         exif={},
         lightroom={},
-        tonecurve={},
     )
 
 @app.route('/<filename>', methods={'GET', 'POST'})
@@ -69,41 +68,37 @@ def image(filename):
     file = get_img_file(filename)
     if not os.path.isfile(file):
         return render_template(
-            'base.html',
+            'image.html',
             image_url="",
             metadata={},
             exif={},
             lightroom={},
-            tonecurve={},
         )
 
     xmp = xmp_export_full(file)
     met = get_image_metadata(file)
     if not has_metadata(xmp):
         return render_template(
-            'base.html',
+            'image.html',
             image_url=get_img_url(filename),
             metadata=met,
             exif={},
             lightroom={},
-            tonecurve={},
         )
 
     crs = crs_full_all(xmp)
     crs['ProcessVersion'] = PROCESS_VERSION[crs['ProcessVersion']]
     crs['PostCropVignetteStyle'] = VIGNETTE_STYLE[crs['PostCropVignetteStyle']]
+    crs['ToneCurvePV2012'] = tc_format_js(crs['ToneCurvePV2012'])
+    crs['ToneCurvePV2012Red'] = tc_format_js(crs['ToneCurvePV2012Red'])
+    crs['ToneCurvePV2012Green'] = tc_format_js(crs['ToneCurvePV2012Green'])
+    crs['ToneCurvePV2012Blue'] = tc_format_js(crs['ToneCurvePV2012Blue'])
     return render_template(
-        'base.html',
+        'image.html',
         image_url=get_img_url(filename),
         metadata=met,
         exif=exif_metadata(xmp),
         lightroom=crs,
-        tonecurve={
-            'rgb': json.dumps(tc_format_js(crs['ToneCurvePV2012'])),
-            'red': json.dumps(tc_format_js(crs['ToneCurvePV2012Red'])),
-            'green': json.dumps(tc_format_js(crs['ToneCurvePV2012Green'])),
-            'blue': json.dumps(tc_format_js(crs['ToneCurvePV2012Blue'])),
-        }
     )
 
 @app.route('/<filename>/xmp')
