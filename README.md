@@ -8,8 +8,6 @@ Portra is a simple Flask app that allows photography enthusiasts to share photos
 
 Portra also allows for exporting of XMP metadata into an `.xmp` sidecar file, tone curves from an image into a tone curve `.xmp` file and Adobe Lightroom settings into a `.lrtemplate` file for use in Adobe Lightroom.
 
-A command line tool `portracl` is also provided that provides the same backend functionality from the command line.
-
 ### Screenshots
 ![](https://github.com/raymondnumbergenerator/portra/raw/master/portra/static/images/screenshots/ss_basic.png)
 
