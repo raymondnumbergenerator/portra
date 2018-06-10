@@ -11,8 +11,8 @@ from flask import send_from_directory
 from werkzeug.utils import secure_filename
 
 from portra.app import app
-from portra.component.export import lr_export_lrtemplate
-from portra.component.export import xmp_export_tonecurve
+from portra.component.export import export_lrtemplate
+from portra.component.export import export_tonecurve
 from portra.component.backend import backend
 
 from portra.utils import allowed_file
@@ -64,13 +64,13 @@ def xmp(filename):
 @app.route('/<filename>/tc')
 def tc(filename):
     xmp = backend().get_img_info(filename)['xmp']
-    tc = xmp_export_tonecurve(xmp)
+    tc = export_tonecurve(xmp)
     return Response(str(tc), mimetype='text/plain')
 
 @app.route('/<filename>/lrt')
 def lrt(filename):
     xmp = backend().get_img_info(filename)['xmp']
-    lrt = lr_export_lrtemplate(xmp, os.path.splitext(filename)[0])
+    lrt = export_lrtemplate(xmp, os.path.splitext(filename)[0])
     return Response(str(lrt), mimetype='text/plain')
 
 @app.route('/img/<path:filename>')

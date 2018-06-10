@@ -1,6 +1,9 @@
 from portra.component.tags import *
-from portra.component.xmp import crs_tonecurve
-from portra.component.xmp import lr_get_settings
+from portra.component.xmp import has_metadata
+from portra.component.xmp import get_tonecurve
+from portra.component.xmp import xmp_get_lr_settings
+
+from portra.utils import tc_format_js
 
 ### Adobe Lightroom values that are stored as arrays.
 LR_ARRAY_TAGS = {
@@ -9,12 +12,24 @@ LR_ARRAY_TAGS = {
     'ToneCurvePV2012Green',
     'ToneCurvePV2012Red'}
 
-def crs_full_all(xmp):
-    return crs_full(xmp, True, True, True, True, True, True, True, True, True,
-                        True, True, True, True, True, True, True, True, True,
-                        True, True, True, True)
+def get_lightroom_settings(xmp):
+    """
+    Returns a properly formatted dictionary of Adobe Lightroom values for the frontend.
+    All internal XMP values are converted to their corresponding value strings.
+    """
+    if has_metadata(xmp):
+        lightroom = get_crs_metadata(xmp, True, True, True, True, True, True, True, True, True,
+                            True, True, True, True, True, True, True, True, True,
+                            True, True, True, True)
+        lightroom['ProcessVersion'] = PROCESS_VERSION[lightroom['ProcessVersion']]
+        lightroom['PostCropVignetteStyle'] = VIGNETTE_STYLE[lightroom['PostCropVignetteStyle']]
+        lightroom['ToneCurvePV2012'] = tc_format_js(lightroom['ToneCurvePV2012'])
+        lightroom['ToneCurvePV2012Red'] = tc_format_js(lightroom['ToneCurvePV2012Red'])
+        lightroom['ToneCurvePV2012Green'] = tc_format_js(lightroom['ToneCurvePV2012Green'])
+        lightroom['ToneCurvePV2012Blue'] = tc_format_js(lightroom['ToneCurvePV2012Blue'])
+    return lightroom
 
-def crs_full(xmp, wb, exposure, contrast, highlights,
+def get_crs_metadata(xmp, wb, exposure, contrast, highlights,
                 shadows, white, black, clarity, tc,
                 treatment, adjustments, saturation, vibrance,
                 sharpening, grain, vignette, dehaze, st,
@@ -38,86 +53,86 @@ def crs_full(xmp, wb, exposure, contrast, highlights,
     return crs
 
 def lr_white_balance(xmp):
-    return lr_get_settings(xmp, LR_WHITE_BALANCE)
+    return xmp_get_lr_settings(xmp, LR_WHITE_BALANCE)
 
 def lr_tone(xmp, exposure, contrast, highlights, shadows, white, black, clarity):
-    tone = lr_get_settings(xmp, LR_TONE)
+    tone = xmp_get_lr_settings(xmp, LR_TONE)
     if not exposure:
-        tone.pop("Exposure2012")
+        tone.pop('Exposure2012')
     if not contrast:
-        tone.pop("Contrast2012")
+        tone.pop('Contrast2012')
     if not highlights:
-        tone.pop("Highlights2012")
+        tone.pop('Highlights2012')
     if not shadows:
-        tone.pop("Shadows2012")
+        tone.pop('Shadows2012')
     if not white:
-        tone.pop("Whites2012")
+        tone.pop('Whites2012')
     if not black:
-        tone.pop("Blacks2012")
+        tone.pop('Blacks2012')
     if not clarity:
-        tone.pop("Clarity2012")
+        tone.pop('Clarity2012')
     return tone
 
 def lr_tone_curve(xmp):
-    tc = crs_tonecurve(xmp)
-    lrt = lr_get_settings(xmp, LR_TONE_CURVE)
+    tc = get_tonecurve(xmp)
+    lrt = xmp_get_lr_settings(xmp, LR_TONE_CURVE)
     for t in LR_ARRAY_TAGS:
         lrt[t] = tc_format(tc[t])
     return lrt
 
 def lr_color(xmp, treatment, adjustments, saturation, vibrance):
-    color = lr_get_settings(xmp, LR_COLOR)
+    color = xmp_get_lr_settings(xmp, LR_COLOR)
     if not treatment:
-        color.pop("ConvertToGrayscale")
+        color.pop('ConvertToGrayscale')
     if not saturation:
-        color.pop("Saturation")
+        color.pop('Saturation')
     if not vibrance:
-        color.pop("Vibrance")
+        color.pop('Vibrance')
 
     if adjustments:
         color.update(lr_color_adjustments(xmp))
     else:
-        color.pop("EnableColorAdjustments")
+        color.pop('EnableColorAdjustments')
     return color
 
 def lr_color_adjustments(xmp):
-    return lr_get_settings(xmp, LR_COLOR_ADJUSTMENTS)
+    return xmp_get_lr_settings(xmp, LR_COLOR_ADJUSTMENTS)
 
 def lr_sharpening(xmp):
-    return lr_get_settings(xmp, LR_SHARPENING)
+    return xmp_get_lr_settings(xmp, LR_SHARPENING)
 
 def lr_effects(xmp, grain, vignette, dehaze):
-    effects = lr_get_settings(xmp, LR_EFFECTS)
+    effects = xmp_get_lr_settings(xmp, LR_EFFECTS)
     if not dehaze:
-        effects.pop("Dehaze")
+        effects.pop('Dehaze')
 
     if grain:
-        effects.update(lr_get_settings(xmp, LR_EFFECTS_GRAIN))
+        effects.update(xmp_get_lr_settings(xmp, LR_EFFECTS_GRAIN))
     if vignette:
-        effects.update(lr_get_settings(xmp, LR_EFFECTS_VIGNETTE))
+        effects.update(xmp_get_lr_settings(xmp, LR_EFFECTS_VIGNETTE))
 
     if not grain and not vignette:
-        effects.pop("EnableEffects")
+        effects.pop('EnableEffects')
     return effects
 
 def lr_split_toning(xmp):
-    return lr_get_settings(xmp, LR_SPLIT_TONING)
+    return xmp_get_lr_settings(xmp, LR_SPLIT_TONING)
 
 def lr_detail(xmp, luminance, color):
     detail = {}
     if luminance or color:
-        detail = lr_get_settings(xmp, LR_DETAIL)
+        detail = xmp_get_lr_settings(xmp, LR_DETAIL)
         if luminance:
-            detail.update(lr_get_settings(xmp, LR_DETAIL_LUMINANCE))
+            detail.update(xmp_get_lr_settings(xmp, LR_DETAIL_LUMINANCE))
         if color:
-            detail.update(lr_get_settings(xmp, LR_DETAIL_COLOR))
+            detail.update(xmp_get_lr_settings(xmp, LR_DETAIL_COLOR))
     return detail
 
 def lr_process_version(xmp):
-    return lr_get_settings(xmp, LR_PROCESS_VERSION)
+    return xmp_get_lr_settings(xmp, LR_PROCESS_VERSION)
 
 def lr_camera_calibration(xmp):
-    return lr_get_settings(xmp, LR_CAMERA_CALIBRATION)
+    return xmp_get_lr_settings(xmp, LR_CAMERA_CALIBRATION)
 
 def tc_format(arr):
     """Formats an array into the style used in .lrtemplate files."""

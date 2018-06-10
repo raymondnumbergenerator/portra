@@ -8,16 +8,12 @@ from flask import url_for
 from libxmp import XMPMeta
 
 from portra.app import app
-from portra.component.lr import crs_full_all
-from portra.component.xmp import exif_metadata
-from portra.component.xmp import has_metadata
-from portra.component.export import xmp_export_full
+from portra.component.lr import get_lightroom_settings
+from portra.component.xmp import get_exif_metadata
+from portra.component.export import export_xmp
 from portra.component.metadata import get_image_metadata
-from portra.component.tags import VIGNETTE_STYLE
-from portra.component.tags import PROCESS_VERSION
 
 from portra.utils import random_filename
-from portra.utils import tc_format_js
 
 from werkzeug.utils import secure_filename
 
@@ -44,8 +40,8 @@ class Backend(ABC):
             filename -- original filename of the image
             xmp -- .xmp of the image stored as an XMP object
             metadata -- image metadata returned by get_image_metadata
-            exif -- exif metadata returned by exif_metadata
-            lightroom -- crs metadata returned by crs_full_all
+            exif -- exif metadata returned by get_exif_metadata
+            lightroom -- lightroom settings returned by get_lightroom_settings
         """
         return
 
@@ -76,6 +72,7 @@ class FileBackend(Backend):
         # Regenerate the metadata file if it is missing.
         if not os.path.isfile(info_path):
             info = self.__img_info__(self.__img_path__(filename))
+            info['filename'] = filename
             pickle.dump(info, \
                         open(os.path.join(FileBackend.METADATA_PATH, info_filename), 'wb'), \
                         protocol=pickle.HIGHEST_PROTOCOL)
@@ -105,18 +102,10 @@ class FileBackend(Backend):
         return filename
 
     def __img_info__(self, file):
-        xmp = xmp_export_full(file)
+        xmp = export_xmp(file)
         metadata = get_image_metadata(file)
-        lightroom = {}
-        if has_metadata(xmp):
-            lightroom = crs_full_all(xmp)
-            lightroom['ProcessVersion'] = PROCESS_VERSION[lightroom['ProcessVersion']]
-            lightroom['PostCropVignetteStyle'] = VIGNETTE_STYLE[lightroom['PostCropVignetteStyle']]
-            lightroom['ToneCurvePV2012'] = tc_format_js(lightroom['ToneCurvePV2012'])
-            lightroom['ToneCurvePV2012Red'] = tc_format_js(lightroom['ToneCurvePV2012Red'])
-            lightroom['ToneCurvePV2012Green'] = tc_format_js(lightroom['ToneCurvePV2012Green'])
-            lightroom['ToneCurvePV2012Blue'] = tc_format_js(lightroom['ToneCurvePV2012Blue'])
-        exif = exif_metadata(xmp)
+        lightroom = get_lightroom_settings(xmp)
+        exif = get_exif_metadata(xmp)
 
         return {
             'xmp': xmp.serialize_to_unicode(omit_packet_wrapper=True, use_compact_format=True),

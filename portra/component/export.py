@@ -5,11 +5,11 @@ import xml.etree.ElementTree as et
 
 from libxmp.utils import file_to_dict, XMPFiles
 
-from portra.component.lr import crs_full
+from portra.component.lr import get_crs_metadata
 from portra.component.lrtemplate import LRTemplate
 from portra.component.tags import TC_TAGS_ARRAY
 from portra.component.tags import TC_TAGS_STRING
-from portra.component.xmp import crs_tonecurve
+from portra.component.xmp import get_tonecurve
 from portra.component.xmp import has_metadata
 
 ### Tags used in tone curve .xmp files.
@@ -22,7 +22,7 @@ XMP_TC_TEXT = [["", "adobe:ns:meta/", "Exempi + XMP Core 5.5.0"],
     ["", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"],
     ["", "", "http://ns.adobe.com/camera-raw-settings/1.0/"]]
 
-def xmp_export_full(filename):
+def export_xmp(filename):
     """Exports an .xmp sidecar file from the image."""
     try:
         xmpfile = XMPFiles(file_path=filename)
@@ -30,12 +30,12 @@ def xmp_export_full(filename):
         return None
     return xmpfile.get_xmp()
 
-def xmp_export_tonecurve(xmp):
+def export_tonecurve(xmp):
     """Exports an .xmp file of the tone curve from the image."""
     if not has_metadata(xmp):
         return "Metadata not found."
 
-    tc = crs_tonecurve(xmp)
+    tc = get_tonecurve(xmp)
 
     x_xmpmeta = et.Element(XMP_TC_TAGS[0][0])
     x_xmpmeta.set(XMP_TC_TAGS[0][1], XMP_TC_TEXT[0][1])
@@ -63,7 +63,7 @@ def xmp_export_tonecurve(xmp):
     xmp_output = minidom.parseString(rough_xmp_output).toprettyxml(indent=' ')
     return xmp_output.split('\n', 1)[1]
 
-def lr_export_lrtemplate(xmp, name,
+def export_lrtemplate(xmp, name,
                 wb=False, exposure=False, contrast=True, highlights=True,
                 shadows=True, white=True, black=True, clarity=True, tc=True,
                 treatment=True, adjustments=True, saturation=True, vibrance=True,
@@ -71,7 +71,7 @@ def lr_export_lrtemplate(xmp, name,
                 d_luminance=False, d_color=False, pv=True, cc=True):
     """
     Exports the Adobe Camera Raw parameters in the image as a .lrtemplate file.
-    Optional arguments can be provided to choose to include of exclude certain
+    Optional arguments can be provided to choose to include or exclude certain
     parameters in the .lrtemplate file.
 
     wb -- White Balance (default: True)

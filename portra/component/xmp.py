@@ -13,17 +13,7 @@ from portra.component.tags import TC_TAGS_STRING
 def has_metadata(xmp):
     return xmp.does_property_exist(NS_DC, 'format')
 
-def parse_exif_val(val):
-    """
-    Sometimes EXIF values are stored in a fraction as a string.
-    This will return the value as a decimal.
-    """
-    nums = val.split('/')
-    if len(nums) == 1:
-        return float(nums[0])
-    return float(nums[0]) / float(nums[1])
-
-def crs_tonecurve(xmp):
+def get_tonecurve(xmp):
     """
     Returns a dictionary of all Adobe Camera Raw tone curve parameters from the provided .xmp file.
     Refer to TC_TAGS_ARRAY and TC_TAGS_STRING in tags.py for all the available values.
@@ -37,10 +27,10 @@ def crs_tonecurve(xmp):
 
     return tc
 
-def exif_metadata(xmp):
+def get_exif_metadata(xmp):
     """
     Returns a dictionary of EXIF metadata from the provided .xmp file.
-        DateTimeOriginal -- ISO 8601 datetime string
+        DateTimeOriginal -- ISO 8601 format datetime string
 
         Model -- camera model
         SerialNumber -- camera body serial number
@@ -176,7 +166,7 @@ def xmp_get_array(xmp, schema_ns, array_name):
         pass
     return arr
 
-def lr_get_settings(xmp, settings):
+def xmp_get_lr_settings(xmp, settings):
     """
     Returns a dictionary containing values all the provided Adobe Lightroom Settings.
     If the value is not defined in the xmp file, then the default value is used.
@@ -193,3 +183,13 @@ def lr_get_settings(xmp, settings):
             pass
         s[option] = val
     return s
+
+def parse_exif_val(val):
+    """
+    Sometimes EXIF values are stored in a fraction as a string.
+    This will return the value as a decimal.
+    """
+    nums = val.split('/')
+    if len(nums) == 1:
+        return float(nums[0])
+    return float(nums[0]) / float(nums[1])
