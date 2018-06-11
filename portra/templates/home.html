@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"/>
+
+<div class="main-block">
+    <form method=post enctype=multipart/form-data>
+        <label for="image-upload"
+            class="image-upload">
+            <img class="icon" src=" {{ url_for('static', filename='images/upload.svg') }}">
+        </label>
+
+        <input id="image-upload" class="file-"
+            type=file name=file
+            onchange="this.form.submit();"
+            style="display: none">
+    </form>
+</div>
+{% endblock %}

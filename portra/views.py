@@ -23,7 +23,7 @@ def home():
         return upload()
 
     return render_template(
-        'image.html',
+        'home.html',
         image_url="",
         metadata={},
         exif={},
@@ -38,7 +38,7 @@ def image(filename):
     url = backend().get_img_url(filename)
     if not url:
         return render_template(
-            'image.html',
+            'missing.html',
             image_url='',
             filename='',
             metadata={},

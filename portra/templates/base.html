@@ -21,7 +21,7 @@
         <div class="mdl-layout-icon">
             <a class="header-links"
                 href="{{ url_for('home') }}">
-                <img src="{{ url_for('static', filename='portra.svg') }}">
+                <img src="{{ url_for('static', filename='images/portra.svg') }}">
             </a>
         </div>
 
@@ -45,10 +45,17 @@
                     style="display: none">
             </form>
 
+            {% if image_url %}
             <button id="button-view"
                 class="mdl-button mdl-js-button mdl-js-ripple-effect">
                 View
             </button>
+            {% else %}
+            <button disabled id="button-view"
+                class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                View
+            </button>
+            {% endif %}
             {% if image_url %}
             <button id="button-export"
                 class="mdl-button mdl-js-button mdl-js-ripple-effect">

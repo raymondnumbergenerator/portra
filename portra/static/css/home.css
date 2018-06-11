@@ -1,0 +1,23 @@
+.main-block {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
+}
+
+label.image-upload {
+    cursor: pointer;
+}
+
+img.icon {
+    height: 50%;
+    max-height: 500px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 64px;
+}
