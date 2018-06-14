@@ -77,7 +77,11 @@ def get_exif_metadata(xmp):
         exif['FocalLengthIn35mmFilm'] = str(int(parse_exif_val(exif['FocalLengthIn35mmFilm']))) + ' mm'
 
     if xmp.does_property_exist(NS_EXIF, 'ExposureTime'):
-        exif['ExposureTime'] = xmp.get_property(NS_EXIF, 'ExposureTime') + ' s'
+        exposure_time = xmp.get_property(NS_EXIF, 'ExposureTime')
+        et = exposure_time.split('/')
+        if et[1] == '1':
+            exposure_time = et[0]
+        exif['ExposureTime'] = exposure_time + ' s'
 
     if xmp.does_property_exist(NS_EXIF, 'FNumber'):
         exif['FNumber'] = xmp.get_property(NS_EXIF, 'FNumber')
