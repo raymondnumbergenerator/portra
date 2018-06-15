@@ -69,23 +69,23 @@ def get_exif_metadata(xmp):
         exif['ApproximateFocusDistance'] = str(parse_exif_val(exif['ApproximateFocusDistance'])) + ' m'
 
     if xmp.does_property_exist(NS_EXIF, 'FocalLength'):
-        exif['FocalLength'] = xmp.get_property(NS_EXIF, 'FocalLength')
-        exif['FocalLength'] = str(int(parse_exif_val(exif['FocalLength']))) + ' mm'
+        focal_length = xmp.get_property(NS_EXIF, 'FocalLength')
+        exif['FocalLength'] = str(int(parse_exif_val(focal_length))) + ' mm'
 
     if xmp.does_property_exist(NS_EXIF, 'FocalLengthIn35mmFilm'):
-        exif['FocalLengthIn35mmFilm'] = xmp.get_property(NS_EXIF, 'FocalLengthIn35mmFilm')
-        exif['FocalLengthIn35mmFilm'] = str(int(parse_exif_val(exif['FocalLengthIn35mmFilm']))) + ' mm'
+        focal_length = xmp.get_property(NS_EXIF, 'FocalLengthIn35mmFilm')
+        exif['FocalLengthIn35mmFilm'] = str(int(parse_exif_val(focal_length))) + ' mm'
 
     if xmp.does_property_exist(NS_EXIF, 'ExposureTime'):
         exposure_time = xmp.get_property(NS_EXIF, 'ExposureTime')
-        et = exposure_time.split('/')
-        if et[1] == '1':
-            exposure_time = et[0]
+        et_fraction = exposure_time.split('/')
+        if et_fraction[1] == '1':
+            exposure_time = et_fraction[0]
         exif['ExposureTime'] = exposure_time + ' s'
 
     if xmp.does_property_exist(NS_EXIF, 'FNumber'):
-        exif['FNumber'] = xmp.get_property(NS_EXIF, 'FNumber')
-        exif['FNumber'] = 'f/' + str(parse_exif_val(exif['FNumber']))
+        f_number = xmp.get_property(NS_EXIF, 'FNumber')
+        exif['FNumber'] = 'f/' + str(parse_exif_val(f_number))
 
     iso = xmp_get_array(xmp, NS_EXIF, 'ISOSpeedRatings')
     if iso:
