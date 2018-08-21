@@ -112,7 +112,7 @@ def export_lrtemplate(xmp, name,
     if not has_metadata(xmp):
         return "Metadata not found."
 
-    settings = crs_full(xmp, wb, exposure, contrast, highlights,
+    settings = get_crs_metadata(xmp, wb, exposure, contrast, highlights,
                 shadows, white, black, clarity, tc,
                 treatment, adjustments, saturation, vibrance,
                 sharpening, grain, vignette, dehaze, st,
