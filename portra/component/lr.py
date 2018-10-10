@@ -18,9 +18,7 @@ def get_lightroom_settings(xmp):
     All internal XMP values are converted to their corresponding value strings.
     """
     if has_metadata(xmp):
-        lightroom = get_crs_metadata(xmp, True, True, True, True, True, True, True, True, True,
-                            True, True, True, True, True, True, True, True, True,
-                            True, True, True, True)
+        lightroom = get_crs_metadata(xmp)
         lightroom['ProcessVersion'] = PROCESS_VERSION[lightroom['ProcessVersion']]
         lightroom['PostCropVignetteStyle'] = VIGNETTE_STYLE[lightroom['PostCropVignetteStyle']]
         lightroom['ToneCurvePV2012'] = tc_format_js(lightroom['ToneCurvePV2012'])
@@ -29,11 +27,11 @@ def get_lightroom_settings(xmp):
         lightroom['ToneCurvePV2012Blue'] = tc_format_js(lightroom['ToneCurvePV2012Blue'])
         return lightroom
 
-def get_crs_metadata(xmp, wb, exposure, contrast, highlights,
-                shadows, white, black, clarity, tc,
-                treatment, adjustments, saturation, vibrance,
-                sharpening, grain, vignette, dehaze, st,
-                d_luminance, d_color, pv, cc):
+def get_crs_metadata(xmp, wb=True, exposure=True, contrast=True, highlights=True,
+                shadows=True, white=True, black=True, clarity=True, tc=True,
+                treatment=True, adjustments=True, saturation=True, vibrance=True,
+                sharpening=True, grain=True, vignette=True, dehaze=True, st=True,
+                d_luminance=True, d_color=True, pv=True, cc=True):
     """
     Returns a dictionary of Adobe Camera Raw parameters from the .xmp file.
     The remaining arguments are booleans which determine the parameters included.
