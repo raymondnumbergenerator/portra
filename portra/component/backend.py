@@ -59,6 +59,7 @@ class FileBackend(Backend):
 
     IMAGES_PATH = app.config['STORAGE_BACKEND']['img_path']
     METADATA_PATH = app.config['STORAGE_BACKEND']['met_path']
+    METADATA_EXTENSION = app.config['STORAGE_BACKEND']['met_extension']
 
     def get_img_url(self, filename):
         if os.path.isfile(self.__img_path__(filename)):
@@ -66,7 +67,7 @@ class FileBackend(Backend):
         return None
 
     def get_img_info(self, filename):
-        info_filename = filename.split('.')[0] + '.met'
+        info_filename = filename.split('.')[0] + FileBackend.METADATA_EXTENSION
         info_path = os.path.join(FileBackend.METADATA_PATH, info_filename)
 
         # Regenerate the metadata file if it is missing.
@@ -94,7 +95,7 @@ class FileBackend(Backend):
 
         info = self.__img_info__(self.__img_path__(filename))
         info['filename'] = original_filename
-        info_filename = filename.split('.')[0] + '.met'
+        info_filename = filename.split('.')[0] + FileBackend.METADATA_EXTENSION
         pickle.dump(info, \
                     open(os.path.join(FileBackend.METADATA_PATH, info_filename), 'wb'), \
                     protocol=pickle.HIGHEST_PROTOCOL)
