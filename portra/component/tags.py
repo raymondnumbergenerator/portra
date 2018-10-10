@@ -115,6 +115,11 @@ PROCESS_VERSION = {
 
 ### Adobe Camera Raw Tone Curve settings that are stored as strings.
 TC_TAGS_STRING = ['Version', 'ToneCurveName', 'ToneCurveName2012', 'HasSettings']
+TC_TAGS_STRING_VALS = {
+    'Version': '9.5.1',
+    'ToneCurveName': 'Linear',
+    'ToneCurveName2012': 'Linear',
+    'HasSettings': 'False'}
 ### Adobe Camera Raw Tone Curve settings that are stored as arrays.
 TC_TAGS_ARRAY = ['ToneCurve', 'ToneCurveRed', 'ToneCurveGreen', 'ToneCurveBlue',
     'ToneCurvePV2012', 'ToneCurvePV2012Red', 'ToneCurvePV2012Green', 'ToneCurvePV2012Blue']

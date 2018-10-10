@@ -27,7 +27,7 @@ def get_lightroom_settings(xmp):
         lightroom['ToneCurvePV2012Red'] = tc_format_js(lightroom['ToneCurvePV2012Red'])
         lightroom['ToneCurvePV2012Green'] = tc_format_js(lightroom['ToneCurvePV2012Green'])
         lightroom['ToneCurvePV2012Blue'] = tc_format_js(lightroom['ToneCurvePV2012Blue'])
-    return lightroom
+        return lightroom
 
 def get_crs_metadata(xmp, wb, exposure, contrast, highlights,
                 shadows, white, black, clarity, tc,
@@ -77,7 +77,8 @@ def lr_tone_curve(xmp):
     tc = get_tonecurve(xmp)
     lrt = xmp_get_lr_settings(xmp, LR_TONE_CURVE)
     for t in LR_ARRAY_TAGS:
-        lrt[t] = tc_format(tc[t])
+        if tc[t]:
+            lrt[t] = tc_format(tc[t])
     return lrt
 
 def lr_color(xmp, treatment, adjustments, saturation, vibrance):

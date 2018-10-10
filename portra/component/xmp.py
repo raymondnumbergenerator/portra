@@ -8,22 +8,21 @@ from libxmp.consts import XMP_NS_EXIF as NS_EXIF
 from libxmp.consts import XMP_NS_EXIF_Aux as NS_EXIF_AUX
 
 from portra.component.tags import TC_TAGS_ARRAY
-from portra.component.tags import TC_TAGS_STRING
+from portra.component.tags import TC_TAGS_STRING_VALS
 
 def has_metadata(xmp):
-    return xmp.does_property_exist(NS_DC, 'format')
+    return xmp.does_property_exist(NS_DC, 'format') and xmp.does_property_exist(NS_CRS, 'Version')
 
 def get_tonecurve(xmp):
     """
     Returns a dictionary of all Adobe Camera Raw tone curve parameters from the provided .xmp file.
-    Refer to TC_TAGS_ARRAY and TC_TAGS_STRING in tags.py for all the available values.
+    Refer to TC_TAGS_ARRAY and TC_TAGS_STRING_VALS in tags.py for all the available values.
     """
     tc = {}
 
+    tc = xmp_get_lr_settings(xmp, TC_TAGS_STRING_VALS)
     for t in TC_TAGS_ARRAY:
         tc[t] = xmp_get_array(xmp, NS_CRS, t)
-    for t in TC_TAGS_STRING:
-        tc[t] = xmp.get_property(NS_CRS, t)
 
     return tc
 
