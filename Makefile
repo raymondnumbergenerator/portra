@@ -7,7 +7,7 @@ export PORTRA_SETTINGS := $(CURDIR)/settings.py
 export SECRET_KEY := cat $(CURDIR)/SECRET_KEY
 
 $(VENV): setup.py requirements.txt
-	python ./vendor/venv-update venv= venv -p python3 install= -r requirements.txt
+	python3 ./vendor/venv-update venv= venv -p python3 install= -r requirements.txt
 
 .PHONY: clean
 clean:
@@ -15,7 +15,7 @@ clean:
 
 .PHONY: dev
 dev:
-	$(BIN)/python run.py
+	$(BIN)/python3 run.py
 
 .PHONY: secret
 secret:
@@ -31,3 +31,6 @@ update-requirements:
 	. $(TMP)/bin/activate && \
 		pip freeze | sort | grep -vE '^(portra|venv-update)==' > requirements.txt
 	rm -rf $(TMP)
+
+docker-image:
+	docker build -t raymondnumbergenerator/portra .
