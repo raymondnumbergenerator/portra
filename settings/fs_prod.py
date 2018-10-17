@@ -2,11 +2,11 @@ import os
 
 STORAGE_BACKEND = {
     'type': 'file',
-    'img_path': '/srv/portra/i',
-    'met_path': '/srv/portra/m',
+    'img_path': '/srv/portra/files/i',
+    'met_path': '/srv/portra/files/m',
     'met_extension': '.met',
 }
-SECRET_KEY = 'src/portra/SECRET_KEY'
+SECRET_KEY = 'srv/portra/SECRET_KEY'
 
 ################################################
 ### DO NOT CONFIGURE VALUES BELOW THIS POINT ###

@@ -34,3 +34,11 @@ update-requirements:
 
 docker-image:
 	docker build -t raymondnumbergenerator/portra .
+
+docker-run:
+	sudo mkdir -p ~/portra_files/i ~/portra_files/m
+	docker run --name portra \
+				--publish 80:8000 \
+				--volume ~/portra_files:/srv/portra/files \
+				--detach \
+				raymondnumbergenerator/portra
