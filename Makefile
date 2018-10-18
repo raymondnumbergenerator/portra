@@ -3,7 +3,7 @@ BIN := $(VENV)/bin
 
 export DEFAULT_IMAGES_PATH := $(CURDIR)/i
 export DEFAULT_METADATA_PATH := $(CURDIR)/m
-export PORTRA_SETTINGS := $(CURDIR)/settings.py
+export PORTRA_SETTINGS := $(CURDIR)/settings/settings.py
 export SECRET_KEY := cat $(CURDIR)/SECRET_KEY
 
 $(VENV): setup.py requirements.txt
@@ -21,9 +21,6 @@ dev:
 secret:
 	openssl rand -base64 32 >> SECRET_KEY
 
-settings.py:
-	ln -fs settings/settings.py settings.py
-
 .PHONY: update-requirements
 update-requirements:
 	$(eval TMP := $(shell mktemp -d))
@@ -35,24 +32,24 @@ update-requirements:
 .PHONY: docker-image
 docker-image:
 	docker build -t raymondnumbergenerator/portra .
-	docker tag raymondnumbergenerator/portra:latest raymondnumbergenerator/portra:current
 
 .PHONY: docker-run
 docker-run:
-	sudo mkdir -p ~/portra_files/i ~/portra_files/m
-	docker stop portra || true
-	docker rm portra || true
+	mkdir -p ~/portra_files/i ~/portra_files/m
 	docker run --name portra \
 		--publish 80:8000 \
 		--volume ~/portra_files:/srv/portra/files \
+		--user $(shell id -u):$(shell id -g) \
 		--restart always \
 		--detach \
 		raymondnumbergenerator/portra:current
 
 .PHONY: docker-redeploy
 docker-redeploy:
+	make docker-image
 	docker stop portra || true
 	docker rm portra || true
 	docker rmi raymondnumbergenerator/portra:current || true
-	make docker-image
+	docker tag raymondnumbergenerator/portra:latest raymondnumbergenerator/portra:current
 	make docker-run
+	docker rmi raymondnumbergenerator/portra:latest || true
