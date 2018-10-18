@@ -32,13 +32,27 @@ update-requirements:
 		pip freeze | sort | grep -vE '^(portra|venv-update)==' > requirements.txt
 	rm -rf $(TMP)
 
+.PHONY: docker-image
 docker-image:
 	docker build -t raymondnumbergenerator/portra .
+	docker tag raymondnumbergenerator/portra:latest raymondnumbergenerator/portra:current
 
+.PHONY: docker-run
 docker-run:
 	sudo mkdir -p ~/portra_files/i ~/portra_files/m
+	docker stop portra || true
+	docker rm portra || true
 	docker run --name portra \
-				--publish 80:8000 \
-				--volume ~/portra_files:/srv/portra/files \
-				--detach \
-				raymondnumbergenerator/portra
+		--publish 80:8000 \
+		--volume ~/portra_files:/srv/portra/files \
+		--restart always \
+		--detach \
+		raymondnumbergenerator/portra:current
+
+.PHONY: docker-redeploy
+docker-redeploy:
+	docker stop portra || true
+	docker rm portra || true
+	docker rmi raymondnumbergenerator/portra:current || true
+	make docker-image
+	make docker-run
