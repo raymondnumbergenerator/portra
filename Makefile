@@ -4,7 +4,7 @@ BIN := $(VENV)/bin
 export DEFAULT_IMAGES_PATH := $(CURDIR)/i
 export DEFAULT_METADATA_PATH := $(CURDIR)/m
 export PORTRA_SETTINGS := $(CURDIR)/settings/settings.py
-export SECRET_KEY := cat $(CURDIR)/SECRET_KEY
+export SECRET_KEY := $(shell cat $(CURDIR)/SECRET_KEY)
 
 $(VENV): setup.py requirements.txt
 	python3 ./vendor/venv-update venv= venv -p python3 install= -r requirements.txt

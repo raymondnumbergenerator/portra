@@ -6,7 +6,7 @@ STORAGE_BACKEND = {
     'met_path': '/srv/portra/files/m',
     'met_extension': '.met',
 }
-SECRET_KEY = 'srv/portra/SECRET_KEY'
+SECRET_KEY = open('/srv/portra/SECRET_KEY').readline()
 
 ################################################
 ### DO NOT CONFIGURE VALUES BELOW THIS POINT ###

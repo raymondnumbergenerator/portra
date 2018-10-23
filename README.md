@@ -21,9 +21,9 @@ Portra also allows for exporting of XMP metadata into an `.xmp` sidecar file, to
 1. Fork this repository and clone your fork.
 2. Add this repository as the upstream remote with `git remote add upstream https://github.com/raymondnumbergenerator/portra.git`
 3. `make venv` will set up the virtual environment.
-4. Configure `settings.py`.
+4. Configure `settings.py` in settings.
 5. `make dev` will run the development copy.
 
 ### Deployment Setup
 1. Configure the Dockerfile if needed.
-1. Run `docker-redeploy`.
+2. Run `make docker-redeploy`.
