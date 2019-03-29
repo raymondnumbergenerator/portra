@@ -12,6 +12,8 @@ from libxmp.consts import XMP_NS_EXIF_Aux as NS_EXIF_AUX
 from portra.component.tags import TC_TAGS_ARRAY
 from portra.component.tags import TC_TAGS_STRING_VALS
 
+INFINITY_FOCUS = (2 ** 32) - 1
+
 def has_metadata(xmp):
     return xmp.does_property_exist(NS_DC, 'format') and xmp.does_property_exist(NS_CRS, 'Version')
 
@@ -67,7 +69,11 @@ def get_exif_metadata(xmp):
             pass
 
     if 'ApproximateFocusDistance' in exif:
-        exif['ApproximateFocusDistance'] = str(parse_exif_val(exif['ApproximateFocusDistance'])) + ' m'
+        focus_distance = parse_exif_val(exif['ApproximateFocusDistance'])
+        if int(focus_distance) == INFINITY_FOCUS:
+            exif['ApproximateFocusDistance'] = 'infinite'
+        else:
+            exif['ApproximateFocusDistance'] = str(focus_distance) + ' m'
 
     if xmp.does_property_exist(NS_EXIF, 'FocalLength'):
         focal_length = xmp.get_property(NS_EXIF, 'FocalLength')
