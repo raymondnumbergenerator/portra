@@ -1,5 +1,7 @@
 import math
 
+from fractions import Fraction
+
 from libxmp import XMPError
 from libxmp.consts import XMP_NS_CameraRaw as NS_CRS
 from libxmp.consts import XMP_NS_DC as NS_DC
@@ -80,6 +82,8 @@ def get_exif_metadata(xmp):
         et_fraction = exposure_time.split('/')
         if et_fraction[1] == '1':
             exposure_time = et_fraction[0]
+        elif et_fraction[0] != '1':
+            exposure_time = reduce_fraction(exposure_time)
         exif['ExposureTime'] = exposure_time + ' s'
 
     if xmp.does_property_exist(NS_EXIF, 'FNumber'):
@@ -186,6 +190,14 @@ def xmp_get_lr_settings(xmp, settings):
             pass
         s[option] = val
     return s
+
+def reduce_fraction(frac):
+    """
+    Some cameras return an unreduced fraction for the exposure time.
+    This will reduce it and return it as a string.
+    """
+    f = Fraction(frac)
+    return '%d/%d' % (f.numerator, f.denominator)
 
 def parse_exif_val(val):
     """

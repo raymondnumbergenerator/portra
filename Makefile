@@ -15,6 +15,7 @@ clean:
 
 .PHONY: dev
 dev:
+	mkdir -p $(DEFAULT_IMAGES_PATH) $(DEFAULT_METADATA_PATH)
 	$(BIN)/python3 run.py
 
 .PHONY: secret
