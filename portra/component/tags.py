@@ -108,9 +108,11 @@ LR_CAMERA_CALIBRATION = {
 ### Mapping from Adobe Camera Raw values to string values
 VIGNETTE_STYLE = ['', 'Highlight Priority', 'Color Priority', 'Paint Overlay']
 PROCESS_VERSION = {
-    '6.7': 2012,
-    '5.7': 2010,
-    '5.0': 2003
+    '11.0': 'PV 5',
+    '10.0': 'PV 4',
+    '6.7': 'PV 3 (2012)',
+    '5.7': 'PV 2 (2010)',
+    '5.0': 'PV 1 (2003)'
 }
 
 ### Adobe Camera Raw Tone Curve settings that are stored as strings.
