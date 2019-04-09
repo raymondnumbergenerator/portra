@@ -20,7 +20,7 @@ def get_lightroom_settings(xmp):
     if has_metadata(xmp):
         lightroom = get_crs_metadata(xmp)
         lightroom['ProcessVersion'] = PROCESS_VERSION[lightroom['ProcessVersion']]
-        lightroom['PostCropVignetteStyle'] = VIGNETTE_STYLE[lightroom['PostCropVignetteStyle']]
+        lightroom['PostCropVignetteStyle'] = VIGNETTE_STYLE[int(lightroom['PostCropVignetteStyle'])]
         lightroom['ToneCurvePV2012'] = tc_format_js(lightroom['ToneCurvePV2012'])
         lightroom['ToneCurvePV2012Red'] = tc_format_js(lightroom['ToneCurvePV2012Red'])
         lightroom['ToneCurvePV2012Green'] = tc_format_js(lightroom['ToneCurvePV2012Green'])
