@@ -25,5 +25,6 @@ Portra also allows for exporting of XMP metadata into an `.xmp` sidecar file, to
 5. `make dev` will run the development copy.
 
 ### Deployment Setup
-1. Configure the Dockerfile if needed.
-2. Run `make docker-redeploy`.
+1. Configure `settings.py` or create a new configuration.
+2. Configure the Dockerfile if needed (for example, to use a different setting configuration).
+3. Run `make docker-redeploy`.
