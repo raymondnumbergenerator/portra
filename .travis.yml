@@ -4,20 +4,21 @@ git:
     quiet: true
 
 services:
-    docker
+    - docker
 
 stages:
-    build
-    test
+    - build
+
+before_install:
+    - pip install --upgrade pip setuptools
 
 jobs:
     include:
         - stage: build
-        - script:
-            - make secret
+          script:
             - make docker-image
-        - stage: test
-        - script:
-            - make docker-run 
+            - docker tag raymondnumbergenerator/portra:latest raymondnumbergenerator/portra:current
+            - make docker-run
             - docker inspect portra
-            - [ $(docker inspect -f '{{.State.Running}}' portra) == "true" ] || exit 1;
+            - if [[ $( docker inspect -f {{.State.Running}} portra ) != "true" ]] ; then exit 1; fi
+
