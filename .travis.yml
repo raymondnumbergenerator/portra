@@ -21,3 +21,4 @@ jobs:
             - make docker-run
             - docker inspect portra
             - if [[ $( docker inspect -f {{.State.Running}} portra ) != "true" ]] ; then exit 1; fi
+
