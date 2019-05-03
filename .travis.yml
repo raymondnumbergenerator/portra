@@ -1,0 +1,23 @@
+language: python
+
+git:
+    quiet: true
+
+services:
+    docker
+
+stages:
+    build
+    test
+
+jobs:
+    include:
+        - stage: build
+        - script:
+            - make secret
+            - make docker-image
+        - stage: test
+        - script:
+            - make docker-run 
+            - docker inspect portra
+            - [ $(docker inspect -f '{{.State.Running}}' portra) == "true" ] || exit 1;
