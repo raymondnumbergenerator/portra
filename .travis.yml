@@ -1,5 +1,7 @@
 language: python
 
+if: commit_message !~ /^(chore|wip):/
+
 git:
     quiet: true
 
