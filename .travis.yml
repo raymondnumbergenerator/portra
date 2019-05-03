@@ -11,9 +11,6 @@ services:
 stages:
     - build
 
-before_install:
-    - pip install --upgrade pip setuptools
-
 jobs:
     include:
         - stage: build

@@ -19,6 +19,7 @@ RUN openssl rand -base64 32 >> /srv/portra/SECRET_KEY
 RUN mkdir /srv/portra/files /srv/portra/files/i /srv/portra/files/m
 
 RUN virtualenv -p python3 /srv/portra/venv \
+    && /srv/portra/venv/bin/pip install --upgrade pip setuptools \
     && /srv/portra/venv/bin/pip install gunicorn \
     && /srv/portra/venv/bin/pip install -r /srv/portra/requirements.txt
 
