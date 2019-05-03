@@ -1,4 +1,4 @@
-## Portra
+## Portra [![Build Status](https://travis-ci.com/raymondnumbergenerator/portra.svg?branch=master)](https://travis-ci.com/raymondnumbergenerator/portra)
 
 ### Requirements
 Portra uses the Python XMP Toolkit, which requires [Exempi](https://libopenraw.freedesktop.org/wiki/Exempi/) when running your own copy. Refer to the Python XMP Toolkit [documentation](https://python-xmp-toolkit.readthedocs.io/en/latest/installation.html) for further information.
