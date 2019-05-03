@@ -1,0 +1,20 @@
+language: python
+
+git:
+    quiet: true
+
+services:
+    docker
+
+before_install:
+	openssl rand -base64 32 >> SECRET_KEY
+    docker build -t raymondnumbergenerator/portra .
+    mkdir -p ~/portra_files/i ~/portra_files/m
+	docker run --name portra \
+		--publish 80:8000 \
+		--volume ~/portra_files:/srv/portra/files \
+		--user $(shell id -u):$(shell id -g) \
+		--restart always \
+		--detach \
+		raymondnumbergenerator/portra:current
+    docker ps -a
