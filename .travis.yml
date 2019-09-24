@@ -1,6 +1,6 @@
 language: python
 
-if: commit_message !~ /^(chore|wip):/
+if: commit_message !~ /^chore:/
 
 git:
     quiet: true
@@ -9,10 +9,14 @@ services:
     - docker
 
 stages:
+    - precheck
     - build
 
 jobs:
     include:
+        - stage: precheck
+          script:
+            - commitlint-travis
         - stage: build
           script:
             - make docker-image
