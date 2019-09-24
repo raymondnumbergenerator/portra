@@ -9,14 +9,10 @@ services:
     - docker
 
 stages:
-    - precheck
     - build
 
 jobs:
     include:
-        - stage: precheck
-          script:
-            - commitlint-travis
         - stage: build
           script:
             - make docker-image
